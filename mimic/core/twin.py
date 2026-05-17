@@ -4,7 +4,7 @@ Twin — the main user-facing class.
 Usage:
     twin = Twin.from_ticker("WMT")
     result = twin.simulate("China port closes for 30 days")
-    print(result.decision)
+    print(result.pretty())
 """
 from __future__ import annotations
 from datetime import date
@@ -55,7 +55,7 @@ class Decision(BaseModel):
 class Twin:
     """
     An LLM-based digital twin of a public company.
-    Composes SEC data + foundation model forecasts + economic formulas
+    Composes SEC data + yfinance + 10-K text + economic formulas
     into structured decision outputs.
     """
 
@@ -67,17 +67,83 @@ class Twin:
         cls,
         ticker: str,
         as_of: Optional[date] = None,
+        use_cache: bool = True,
     ) -> "Twin":
         """
         Build a Twin from a stock ticker symbol.
-        Pulls data automatically from SEC EDGAR + yfinance.
+        Pulls data from SEC EDGAR, yfinance, and 10-K text (via LLM).
 
         Args:
             ticker: Stock ticker, e.g. "WMT", "AAPL"
             as_of: Date for historical context (default: today)
+            use_cache: Whether to use the local file cache
         """
+        from rich.console import Console
+        from mimic.data import cache
+        from mimic.data.prices import enrich_from_yfinance
+        from mimic.data.sec import fetch_10k_sections, extract_strategy_with_llm
+
+        console = Console()
+        ticker = ticker.upper()
+
+        if use_cache:
+            cached = cache.load(ticker, "context")
+            if cached:
+                console.print(f"[green]✓ Loaded {ticker} from cache[/green]")
+                cached.pop("_submissions", None)
+                cached.pop("_cik", None)
+                return cls(CompanyContext.model_validate(cached))
+
         raw = build_context_from_edgar(ticker)
+
+        # Pull raw objects before removing them from the dict
+        submissions = raw.pop("_submissions", {})
+        cik = raw.pop("_cik", "")
+
+        # Enrich with yfinance market data
+        console.print("[cyan]→ Enriching with market data...[/cyan]")
+        try:
+            market = enrich_from_yfinance(ticker)
+            raw["market_cap"] = market["market_cap"]
+            raw["employees"] = market["employees"]
+            if market["sector"]:
+                raw["sector"] = market["sector"]
+            if market["industry"]:
+                raw["industry"] = market["industry"]
+            console.print(
+                f"  Market cap: ${raw['market_cap']:,.0f}M  "
+                f"Beta: {market['beta']:.2f}"
+            )
+        except Exception as e:
+            console.print(f"  [yellow]yfinance unavailable: {e}[/yellow]")
+
+        # Extract strategy from 10-K text
+        console.print("[cyan]→ Loading strategy from 10-K...[/cyan]")
+        tenk_cached = cache.load(ticker, "tenk") if use_cache else None
+        if tenk_cached:
+            strategy_data = tenk_cached
+        else:
+            try:
+                sections = fetch_10k_sections(cik, submissions)
+                strategy_data = extract_strategy_with_llm(sections, ticker)
+                if use_cache and any(strategy_data.values()):
+                    cache.save(ticker, strategy_data, "tenk")
+            except Exception as e:
+                console.print(f"  [yellow]10-K extraction failed: {e}[/yellow]")
+                strategy_data = {}
+
+        if strategy_data:
+            raw["strategy"].update(strategy_data)
+            console.print(
+                f"  [green]✓ Strategy loaded "
+                f"({len(raw['strategy'].get('risk_factors', []))} risk factors)[/green]"
+            )
+
         context = CompanyContext.model_validate(raw)
+
+        if use_cache:
+            cache.save(ticker, context.model_dump(), "context")
+
         return cls(context)
 
     @classmethod
@@ -111,7 +177,7 @@ class Twin:
 
         formula_ctx = compute_formula_context(self.context, event, severity)
 
-        decision = run_orchestrator(
+        return run_orchestrator(
             context=self.context,
             event=event,
             severity=severity,
@@ -120,12 +186,9 @@ class Twin:
             model=model,
         )
 
-        return decision
-
     def benchmark(self, events: list[dict]) -> list[dict]:
         """
-        Run this twin against a list of historical events
-        and score against ground truth.
+        Run this twin against a list of historical events and score against ground truth.
 
         Each event dict: {description, date, ground_truth_response}
         Returns list of {event, prediction, ground_truth, fidelity_score}
@@ -138,7 +201,7 @@ class Twin:
                 "date": event.get("date"),
                 "prediction": prediction.model_dump(),
                 "ground_truth": event.get("ground_truth_response", ""),
-                "fidelity_score": None,  # scored by benchmark.scoring module
+                "fidelity_score": None,  # scored by mimic-bench
             })
         return results
 
