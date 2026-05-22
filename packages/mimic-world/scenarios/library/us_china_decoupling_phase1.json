@@ -1,0 +1,24 @@
+{
+  "id": "us_china_decoupling_phase1",
+  "title": "US-China decoupling Phase 1 — broad tariffs and tech restrictions",
+  "category": "geopolitical",
+  "severity": 0.70,
+  "duration_days": 730,
+  "initial_shocks": {
+    "manufacturing_capacity_china": -0.25,
+    "semiconductor_supply": -0.30,
+    "usd_cny": 0.05,
+    "consumer_goods_tariff": 0.25,
+    "tech_equipment_export_ban": -0.40
+  },
+  "affected_sectors": ["technology", "retail", "consumer_electronics", "manufacturing", "logistics"],
+  "cascade_rules": [
+    {"from": "manufacturing_capacity_china", "to": "consumer_goods_supply", "multiplier": 0.40},
+    {"from": "semiconductor_supply", "to": "tech_production", "multiplier": 0.55},
+    {"from": "consumer_goods_tariff", "to": "consumer_prices", "multiplier": 0.35},
+    {"from": "tech_equipment_export_ban", "to": "china_semiconductor_self_sufficiency", "multiplier": -0.50}
+  ],
+  "historical_analogue": "2018-2019 US-China trade war, 2022 CHIPS Act export controls",
+  "source": "mimic-world team",
+  "description": "US imposes sweeping tariffs (25%+) on Chinese goods and expands semiconductor export controls. China retaliates with rare earth restrictions and market access barriers. Companies scramble to diversify supply chains."
+}

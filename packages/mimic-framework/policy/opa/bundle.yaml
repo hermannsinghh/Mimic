@@ -1,0 +1,16 @@
+name: mimic-agent-actions
+version: 0.1.0
+description: Baseline policy bundle for Mimic agent decisions.
+rules:
+  - id: position_limit
+    description: Trade-style actions must not exceed the entity's position_limit.
+    allowed_action_types: [hedge, hold, sell, buy, reinsure, cede, retain]
+    invariant: "quantity * price <= position_limit"
+  - id: non_negative_quantity
+    description: Quantity must be non-negative.
+    allowed_action_types: [hedge, raise_capital, cut_exposure, hold, sell, buy, reinsure, cede, retain]
+    invariant: "quantity >= 0"
+  - id: minimum_confidence
+    description: Decision confidence must be at least 0.5 for capital actions.
+    allowed_action_types: [raise_capital, cut_exposure, lobby]
+    invariant: "confidence >= 0.5"

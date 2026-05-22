@@ -1,0 +1,24 @@
+{
+  "id": "suez_canal_closure_14d",
+  "title": "Suez Canal blocked — 14-day closure",
+  "category": "supply_chain",
+  "severity": 0.65,
+  "duration_days": 14,
+  "initial_shocks": {
+    "shipping_europe_asia": -0.40,
+    "shipping_rates": 0.30,
+    "oil_price": 0.05,
+    "retail_inventory_eu": -0.15,
+    "delivery_delay_days": 0.14
+  },
+  "affected_sectors": ["logistics", "retail", "energy", "manufacturing", "automotive"],
+  "cascade_rules": [
+    {"from": "shipping_europe_asia", "to": "retail_inventory", "multiplier": 0.40},
+    {"from": "shipping_europe_asia", "to": "manufacturing_supply_europe", "multiplier": 0.30},
+    {"from": "shipping_rates", "to": "consumer_goods_prices", "multiplier": 0.15},
+    {"from": "delivery_delay_days", "to": "just_in_time_disruption", "multiplier": 0.60}
+  ],
+  "historical_analogue": "2021 Ever Given grounding (blocked Suez 6 days, ~$9B/day impact)",
+  "source": "mimic-world team",
+  "description": "A vessel grounds in the Suez Canal and blocks all traffic for 14 days. 12% of global trade is rerouted around the Cape of Good Hope, adding 10+ days transit. Just-in-time manufacturing across Europe and Asia is severely disrupted."
+}

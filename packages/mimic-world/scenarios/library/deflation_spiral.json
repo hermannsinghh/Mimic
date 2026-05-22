@@ -1,0 +1,23 @@
+{
+  "id": "deflation_spiral",
+  "title": "Deflationary spiral — prices fall, demand collapses, repeat",
+  "category": "macro",
+  "severity": 0.75,
+  "duration_days": 730,
+  "initial_shocks": {
+    "consumer_demand_us": -0.30,
+    "price_level": -0.05,
+    "business_investment": -0.45,
+    "debt_deflation_burden": 0.30
+  },
+  "affected_sectors": ["retail", "manufacturing", "banking", "real_estate", "all_sectors"],
+  "cascade_rules": [
+    {"from": "price_level", "to": "consumer_defer_purchases", "multiplier": 0.70},
+    {"from": "debt_deflation_burden", "to": "corporate_bankruptcy_rate", "multiplier": 0.55},
+    {"from": "consumer_demand_us", "to": "production", "multiplier": 0.80},
+    {"from": "price_level", "to": "bank_collateral_values", "multiplier": 0.65}
+  ],
+  "historical_analogue": "Japan 1990s Lost Decade, Great Depression 1929-1933",
+  "source": "mimic-world team",
+  "description": "Prices begin falling as demand collapses. Consumers defer purchases expecting further price drops — creating a self-reinforcing spiral. Real debt burdens rise. Banks' collateral values evaporate. Corporate bankruptcies surge. Zero lower bound on rates means no monetary escape."
+}

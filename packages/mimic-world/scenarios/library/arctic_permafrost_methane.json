@@ -1,0 +1,23 @@
+{
+  "id": "arctic_permafrost_methane",
+  "title": "Arctic permafrost methane pulse — emergency climate response",
+  "category": "climate",
+  "severity": 0.55,
+  "duration_days": 365,
+  "initial_shocks": {
+    "carbon_price": 0.50,
+    "natural_gas_demand": -0.15,
+    "climate_regulatory_pressure": 0.60,
+    "fossil_fuel_investment": -0.30
+  },
+  "affected_sectors": ["energy", "chemicals", "aviation", "agriculture", "insurance"],
+  "cascade_rules": [
+    {"from": "carbon_price", "to": "energy_costs", "multiplier": 0.45},
+    {"from": "climate_regulatory_pressure", "to": "fossil_fuel_stranded_assets", "multiplier": 0.55},
+    {"from": "carbon_price", "to": "aviation_cost", "multiplier": 0.30},
+    {"from": "fossil_fuel_investment", "to": "energy_transition_capex", "multiplier": -0.60}
+  ],
+  "historical_analogue": "Methane bomb warnings from permafrost scientists; emergency IPCC report triggers",
+  "source": "mimic-world team",
+  "description": "Satellite data confirms massive methane release from Siberian permafrost — equivalent to 20 years of human emissions. Emergency UN climate summit imposes emergency carbon taxes globally. Fossil fuel companies face sudden asset stranding."
+}

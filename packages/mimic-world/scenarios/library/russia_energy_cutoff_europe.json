@@ -1,0 +1,24 @@
+{
+  "id": "russia_energy_cutoff_europe",
+  "title": "Russia complete energy cutoff to Europe",
+  "category": "geopolitical",
+  "severity": 0.80,
+  "duration_days": 365,
+  "initial_shocks": {
+    "natural_gas_supply_europe": -0.75,
+    "electricity_prices_europe": 0.85,
+    "usd_eur": 0.06,
+    "oil_price": 0.25,
+    "industrial_production_europe": -0.30
+  },
+  "affected_sectors": ["energy", "chemicals", "manufacturing", "utilities", "automotive"],
+  "cascade_rules": [
+    {"from": "natural_gas_supply_europe", "to": "industrial_production_europe", "multiplier": 0.60},
+    {"from": "electricity_prices_europe", "to": "manufacturing_cost_europe", "multiplier": 0.40},
+    {"from": "industrial_production_europe", "to": "european_exports", "multiplier": 0.50},
+    {"from": "oil_price", "to": "shipping_rates", "multiplier": 0.30}
+  ],
+  "historical_analogue": "2022 Russia-Ukraine energy crisis",
+  "source": "mimic-world team",
+  "description": "Russia completely halts all natural gas and oil exports to Europe. European industrial production collapses as energy rationing begins. Chemical plants, fertilizer producers, and energy-intensive manufacturers shut down."
+}

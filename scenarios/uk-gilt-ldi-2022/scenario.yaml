@@ -1,0 +1,21 @@
+apiVersion: mimic.scenario/v1
+kind: Scenario
+metadata:
+  name: uk-gilt-ldi-2022
+  version: 0.1.0
+  license: MIT
+  author_did: did:web:mimic.ai
+  mimic_version: ">=0.2.0,<0.4.0"
+spec:
+  event:
+    iri: https://mimic.ai/events/sovereign/uk-gilt-ldi-2022-09
+    duration_days: 14
+  scope:
+    tiers: [T1, T2]
+    entity_filter: "industry in ('uk_pension','life_insurance','asset_manager')"
+  mc:
+    paths: 5000
+    horizon_days: 90
+    seed_global: 0x6BD7BEEF
+  reloop: false
+  budget_usd: 100

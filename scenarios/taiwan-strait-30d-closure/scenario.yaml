@@ -1,0 +1,21 @@
+apiVersion: mimic.scenario/v1
+kind: Scenario
+metadata:
+  name: taiwan-strait-30d-closure
+  version: 0.1.0
+  license: MIT
+  author_did: did:web:mimic.ai
+  mimic_version: ">=0.2.0,<0.4.0"
+spec:
+  event:
+    iri: https://mimic.ai/events/geopolitical/taiwan-strait-closure
+    duration_days: 30
+  scope:
+    tiers: [T1, T2, T3]
+    entity_filter: "industry in ('reinsurance','marine_insurance','property_cat')"
+  mc:
+    paths: 10000
+    horizon_days: 365
+    seed_global: 0xDEADBEEF
+  reloop: false
+  budget_usd: 250

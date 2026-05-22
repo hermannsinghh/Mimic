@@ -1,0 +1,21 @@
+{
+  "id": "2022_06_fed_75bps_hike",
+  "title": "Federal Reserve +75bps rate hike — largest since 1994",
+  "date": "2022-06-15",
+  "end_date": "2022-09-30",
+  "category": "macro",
+  "severity": 0.80,
+  "description": "The Federal Reserve raises the federal funds rate by 75 basis points on June 15, 2022 — the largest single hike since 1994 — bringing the target range to 1.50–1.75%. Fed Chair Powell signals continued aggressive tightening to fight 40-year-high inflation (CPI 8.6% in May 2022). The S&P 500 enters a bear market (-24% YTD by mid-June). Mortgage rates top 6% for the first time since 2008.",
+  "affected_sectors": ["Financials", "Technology", "Consumer Discretionary", "Real Estate"],
+  "affected_geographies": ["united_states", "global"],
+  "keywords": ["federal reserve", "interest rates", "75bps", "inflation", "monetary policy", "recession", "CPI", "credit"],
+  "key_indicators": {
+    "rate_move_bps": 75,
+    "target_range_after": "1.50-1.75%",
+    "cpi_may_2022_pct": 8.6,
+    "sp500_ytd_pct": -24,
+    "ten_year_treasury_yield_pct": 3.47
+  },
+  "source": "Federal Reserve, BLS",
+  "source_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20220615a.htm"
+}

@@ -1,0 +1,23 @@
+{
+  "id": "antibiotic_resistance_crisis",
+  "title": "Antibiotic resistance crisis — common infections become untreatable",
+  "category": "pandemic",
+  "severity": 0.65,
+  "duration_days": 1825,
+  "initial_shocks": {
+    "healthcare_costs": 0.28,
+    "livestock_production": -0.18,
+    "pharmaceutical_demand": 0.25,
+    "hospital_procedures_deferral": -0.20
+  },
+  "affected_sectors": ["healthcare", "pharmaceuticals", "food", "agriculture", "insurance"],
+  "cascade_rules": [
+    {"from": "healthcare_costs", "to": "corporate_health_insurance_costs", "multiplier": 0.65},
+    {"from": "livestock_production", "to": "meat_prices", "multiplier": 0.45},
+    {"from": "hospital_procedures_deferral", "to": "medical_device_revenue", "multiplier": 0.60},
+    {"from": "pharmaceutical_demand", "to": "antibiotic_rd_investment", "multiplier": 0.50}
+  ],
+  "historical_analogue": "WHO 2019 report: AMR kills 700K/year, projected 10M/year by 2050",
+  "source": "mimic-world team",
+  "description": "Several globally dominant antibiotic classes fail simultaneously against common pathogens. Routine surgeries become high-risk. Meat production dependent on antibiotic growth promoters collapses under new regulations. Healthcare system costs spiral."
+}

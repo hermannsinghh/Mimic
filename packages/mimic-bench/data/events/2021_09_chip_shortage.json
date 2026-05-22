@@ -1,0 +1,20 @@
+{
+  "id": "2021_09_chip_shortage",
+  "title": "Global semiconductor shortage — peak impact Q3/Q4 2021",
+  "date": "2021-09-01",
+  "end_date": "2022-03-31",
+  "category": "supply_chain",
+  "severity": 0.82,
+  "description": "The global semiconductor shortage reaches its most acute phase in Q3–Q4 2021. Chip lead times exceed 52 weeks. Auto manufacturers idle plants over missing $1–2 microcontrollers. Apple's Tim Cook quantifies a $6B revenue hit in Q4 FY2021. Ford loses $2.5B in 2021 profit. GM sells trucks missing chip-dependent features. Tesla rewrites FSD firmware to use alternative chips.",
+  "affected_sectors": ["Consumer Discretionary", "Technology", "Industrials"],
+  "affected_geographies": ["global"],
+  "keywords": ["semiconductor", "chip shortage", "supply chain", "automotive", "TSMC", "lead times", "microcontroller"],
+  "key_indicators": {
+    "avg_chip_lead_time_weeks": 52,
+    "us_auto_production_loss_vehicles": 1500000,
+    "apple_revenue_impact_usdB": 6,
+    "ford_profit_impact_usdB": 2.5
+  },
+  "source": "IHS Markit, Apple Q4 FY2021 earnings, Ford 2021 annual report",
+  "source_url": "https://www.wsj.com/articles/chip-shortage-auto-industry-11635965401"
+}

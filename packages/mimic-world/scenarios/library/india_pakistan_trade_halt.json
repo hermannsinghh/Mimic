@@ -1,0 +1,24 @@
+{
+  "id": "india_pakistan_trade_halt",
+  "title": "India-Pakistan military standoff — trade and transit halt",
+  "category": "geopolitical",
+  "severity": 0.45,
+  "duration_days": 30,
+  "initial_shocks": {
+    "textile_supply_south_asia": -0.35,
+    "pharmaceutical_supply": -0.20,
+    "usd_inr": 0.04,
+    "agricultural_trade_south_asia": -0.25,
+    "it_services_india": -0.10
+  },
+  "affected_sectors": ["textiles", "pharmaceuticals", "agriculture", "it_services"],
+  "cascade_rules": [
+    {"from": "pharmaceutical_supply", "to": "generic_drug_prices", "multiplier": 0.45},
+    {"from": "textile_supply_south_asia", "to": "apparel_supply", "multiplier": 0.55},
+    {"from": "it_services_india", "to": "tech_outsourcing_cost", "multiplier": -0.40},
+    {"from": "agricultural_trade_south_asia", "to": "food_prices_asia", "multiplier": 0.20}
+  ],
+  "historical_analogue": "2019 Pulwama attack standoff, 2001-2002 India-Pakistan military standoff",
+  "source": "mimic-world team",
+  "description": "India-Pakistan military standoff following a cross-border incident. Trade routes close. India is the world's pharmacy — generic drug supply to global markets is disrupted. Indian IT services face business continuity concerns."
+}

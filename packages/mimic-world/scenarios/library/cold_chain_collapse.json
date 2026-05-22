@@ -1,0 +1,23 @@
+{
+  "id": "cold_chain_collapse",
+  "title": "Cold chain infrastructure failure — 30-day crisis",
+  "category": "supply_chain",
+  "severity": 0.55,
+  "duration_days": 30,
+  "initial_shocks": {
+    "food_cold_chain": -0.30,
+    "pharmaceutical_cold_chain": -0.40,
+    "refrigerated_transport": -0.25,
+    "food_waste_rate": 0.45
+  },
+  "affected_sectors": ["food", "pharmaceuticals", "agriculture", "retail", "healthcare"],
+  "cascade_rules": [
+    {"from": "food_cold_chain", "to": "food_prices", "multiplier": 0.40},
+    {"from": "pharmaceutical_cold_chain", "to": "vaccine_availability", "multiplier": 0.65},
+    {"from": "food_waste_rate", "to": "food_supply", "multiplier": -0.35},
+    {"from": "pharmaceutical_cold_chain", "to": "insulin_availability", "multiplier": 0.55}
+  ],
+  "historical_analogue": "2021 Texas winter storm cold chain failures, COVID vaccine cold chain breakdowns",
+  "source": "mimic-world team",
+  "description": "A power grid failure combined with refrigerant shortages causes cold chain collapse across the US Midwest and Southeast. 30% of perishable food spoils in transit. mRNA vaccines, insulin, and biologics face critical distribution failures."
+}

@@ -1,0 +1,23 @@
+{
+  "id": "port_la_strike_30d",
+  "title": "Port of LA/Long Beach strike — 30 days",
+  "category": "supply_chain",
+  "severity": 0.60,
+  "duration_days": 30,
+  "initial_shocks": {
+    "shipping_asia_us": -0.45,
+    "retail_inventory": -0.20,
+    "consumer_goods_supply": -0.25,
+    "us_import_capacity": -0.40
+  },
+  "affected_sectors": ["retail", "logistics", "manufacturing", "consumer_goods", "automotive"],
+  "cascade_rules": [
+    {"from": "retail_inventory", "to": "consumer_prices", "multiplier": 0.30},
+    {"from": "consumer_goods_supply", "to": "holiday_retail_sales", "multiplier": 0.55},
+    {"from": "shipping_asia_us", "to": "automotive_parts_supply", "multiplier": 0.45},
+    {"from": "us_import_capacity", "to": "shipping_rates", "multiplier": -0.35}
+  ],
+  "historical_analogue": "2002 West Coast port lockout (10 days, $1B/day loss), 2014-15 congestion",
+  "source": "mimic-world team",
+  "description": "ILWU dockworkers strike at the Ports of Los Angeles and Long Beach, handling 40% of US imports. Container ships anchor offshore. Retailers face inventory shortfalls. Automotive assembly lines halt awaiting parts."
+}

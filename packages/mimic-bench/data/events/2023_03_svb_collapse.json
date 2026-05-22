@@ -1,0 +1,21 @@
+{
+  "id": "2023_03_svb_collapse",
+  "title": "Silicon Valley Bank collapse — FDIC seizure and contagion",
+  "date": "2023-03-10",
+  "end_date": "2023-04-30",
+  "category": "macro",
+  "severity": 0.78,
+  "description": "Silicon Valley Bank ($209B assets, deposits concentrated in VC-backed startups) collapses on March 10, 2023 after a bank run triggered by a $1.8B bond portfolio loss announcement. FDIC seizes SVB on March 10 and Signature Bank on March 12. Treasury/Fed/FDIC invoke systemic risk exception, guaranteeing all deposits. First Republic Bank ($229B) fails under pressure and is acquired by JPMorgan on May 1.",
+  "affected_sectors": ["Financials", "Technology"],
+  "affected_geographies": ["united_states"],
+  "keywords": ["SVB", "Silicon Valley Bank", "bank run", "FDIC", "startup", "deposits", "First Republic", "contagion"],
+  "key_indicators": {
+    "svb_assets_usdB": 209,
+    "first_republic_assets_usdB": 229,
+    "bank_failures_q1_2023": 3,
+    "kbw_bank_index_drawdown_pct": -22,
+    "vc_startups_with_svb_pct": 50
+  },
+  "source": "FDIC, US Treasury, Federal Reserve",
+  "source_url": "https://www.fdic.gov/news/press-releases/2023/pr23016.html"
+}

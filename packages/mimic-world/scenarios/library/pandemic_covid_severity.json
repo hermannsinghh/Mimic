@@ -1,0 +1,25 @@
+{
+  "id": "pandemic_covid_severity",
+  "title": "COVID-19 equivalent pandemic — full severity replay",
+  "category": "pandemic",
+  "severity": 0.90,
+  "duration_days": 540,
+  "initial_shocks": {
+    "consumer_demand_services": -0.55,
+    "manufacturing_capacity_global": -0.35,
+    "air_freight_capacity": -0.30,
+    "e_commerce_demand": 0.45,
+    "healthcare_system_strain": 0.80,
+    "remote_work_shift": 0.70
+  },
+  "affected_sectors": ["retail", "aviation", "hospitality", "e_commerce", "healthcare", "office_real_estate"],
+  "cascade_rules": [
+    {"from": "consumer_demand_services", "to": "hospitality_revenue", "multiplier": 0.85},
+    {"from": "remote_work_shift", "to": "commercial_real_estate", "multiplier": -0.55},
+    {"from": "e_commerce_demand", "to": "logistics_volume", "multiplier": 0.65},
+    {"from": "manufacturing_capacity_global", "to": "supply_chain_resilience", "multiplier": 0.55}
+  ],
+  "historical_analogue": "COVID-19 pandemic 2020-2021 — $16T GDP loss globally",
+  "source": "mimic-world team",
+  "description": "A COVID-19-severity pandemic with similar transmissibility and mortality. Global lockdowns collapse service demand. E-commerce and home delivery surge. Manufacturing disruptions cascade through supply chains. Airlines ground 80% of fleet."
+}

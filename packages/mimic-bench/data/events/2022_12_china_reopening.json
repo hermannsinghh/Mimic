@@ -1,0 +1,19 @@
+{
+  "id": "2022_12_china_reopening",
+  "title": "China ends Zero-COVID — abrupt economic reopening",
+  "date": "2022-12-07",
+  "end_date": "2023-03-31",
+  "category": "macro",
+  "severity": 0.65,
+  "description": "China abruptly ends its Zero-COVID policy on December 7, 2022, following the 'White Paper Revolution' protests of November 2022. Quarantine requirements are eliminated on January 8, 2023. Chinese manufacturing, logistics, and consumer activity resume after years of periodic lockdowns. The reopening releases pent-up demand, benefits commodity exporters to China, and provides supply chain relief for companies with China manufacturing.",
+  "affected_sectors": ["Technology", "Consumer Discretionary", "Consumer Staples", "Energy", "Materials"],
+  "affected_geographies": ["china", "asia", "global"],
+  "keywords": ["china", "zero-covid", "reopening", "supply chain", "manufacturing", "demand recovery", "Foxconn"],
+  "key_indicators": {
+    "china_gdp_q1_2023_yoy_pct": 4.5,
+    "china_oil_demand_recovery_kbpd": 500,
+    "china_retail_sales_jan_2023_yoy_pct": 3.5
+  },
+  "source": "National Health Commission of China, Reuters",
+  "source_url": "https://www.reuters.com/world/china/china-says-downgrading-covid-19-management-level-2023-01-08/"
+}

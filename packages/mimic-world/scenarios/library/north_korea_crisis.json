@@ -1,0 +1,24 @@
+{
+  "id": "north_korea_crisis",
+  "title": "North Korea nuclear test — 14-day regional crisis",
+  "category": "geopolitical",
+  "severity": 0.55,
+  "duration_days": 14,
+  "initial_shocks": {
+    "shipping_asia_us": -0.15,
+    "consumer_confidence": -0.10,
+    "defense_spending": 0.20,
+    "south_korea_manufacturing": -0.12,
+    "japan_manufacturing": -0.08
+  },
+  "affected_sectors": ["retail", "defense", "logistics", "consumer_electronics"],
+  "cascade_rules": [
+    {"from": "consumer_confidence", "to": "retail_sales", "multiplier": 0.60},
+    {"from": "shipping_asia_us", "to": "supply_delay", "multiplier": 0.30},
+    {"from": "south_korea_manufacturing", "to": "memory_chip_supply", "multiplier": 0.65},
+    {"from": "defense_spending", "to": "government_budget_deficit", "multiplier": 0.20}
+  ],
+  "historical_analogue": "2017 North Korea ICBM tests and crisis period",
+  "source": "mimic-world team",
+  "description": "North Korea conducts its sixth nuclear test and test-fires ICBMs over Japan. Regional shipping hesitates. Samsung and SK Hynix (South Korea) activate emergency protocols. Crisis subsides after US-China diplomatic intervention."
+}

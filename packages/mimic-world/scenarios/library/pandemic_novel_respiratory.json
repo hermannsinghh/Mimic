@@ -1,0 +1,24 @@
+{
+  "id": "pandemic_novel_respiratory",
+  "title": "Novel respiratory pandemic — higher mortality, faster containment",
+  "category": "pandemic",
+  "severity": 0.75,
+  "duration_days": 270,
+  "initial_shocks": {
+    "consumer_demand_services": -0.50,
+    "healthcare_system_capacity": -0.40,
+    "logistics_labor": -0.25,
+    "border_closure_index": 0.70,
+    "pharmaceutical_demand": 0.60
+  },
+  "affected_sectors": ["hospitality", "aviation", "retail", "healthcare", "supply_chain"],
+  "cascade_rules": [
+    {"from": "border_closure_index", "to": "shipping_capacity_global", "multiplier": -0.35},
+    {"from": "logistics_labor", "to": "delivery_capacity", "multiplier": 0.65},
+    {"from": "pharmaceutical_demand", "to": "active_pharmaceutical_ingredient_supply", "multiplier": -0.50},
+    {"from": "consumer_demand_services", "to": "restaurant_retail_revenue", "multiplier": 0.80}
+  ],
+  "historical_analogue": "Modeled on high-mortality pandemic scenarios; WHO Disease X planning",
+  "source": "mimic-world team",
+  "description": "A novel pathogen with higher mortality than COVID but faster immune response leads to 9-month disruption before vaccine rollout. Border closures collapse international supply chains. Healthcare systems triage non-emergency care."
+}

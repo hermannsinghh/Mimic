@@ -1,0 +1,24 @@
+{
+  "id": "arctic_route_opening",
+  "title": "Arctic Northern Sea Route fully navigable — 90-day window",
+  "category": "geopolitical",
+  "severity": -0.30,
+  "duration_days": 90,
+  "initial_shocks": {
+    "shipping_capacity_global": 0.08,
+    "shipping_europe_asia": 0.15,
+    "shipping_rates": -0.12,
+    "arctic_resource_access": 0.20,
+    "suez_canal_dependency": -0.10
+  },
+  "affected_sectors": ["logistics", "energy", "mining", "retail"],
+  "cascade_rules": [
+    {"from": "shipping_rates", "to": "trade_volumes", "multiplier": 0.30},
+    {"from": "arctic_resource_access", "to": "oil_supply", "multiplier": 0.08},
+    {"from": "shipping_europe_asia", "to": "manufacturing_supply_europe", "multiplier": 0.15},
+    {"from": "shipping_rates", "to": "consumer_goods_prices", "multiplier": -0.10}
+  ],
+  "historical_analogue": "2012 Northern Sea Route record navigation season",
+  "source": "mimic-world team",
+  "description": "Accelerated Arctic ice melt opens a full Northern Sea Route for 3 months. Transit time Europe-Asia drops 40%. Shipping rates fall as capacity increases. Arctic resource extraction accelerates. Geopolitical tensions rise over Arctic sovereignty."
+}

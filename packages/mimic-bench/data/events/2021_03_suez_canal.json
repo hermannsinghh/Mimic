@@ -1,0 +1,20 @@
+{
+  "id": "2021_03_suez_canal",
+  "title": "Suez Canal blockage — Ever Given grounding",
+  "date": "2021-03-23",
+  "end_date": "2021-03-29",
+  "category": "supply_chain",
+  "severity": 0.6,
+  "description": "The container ship Ever Given runs aground in the Suez Canal on March 23, 2021, blocking one of the world's most critical shipping lanes for six days. Approximately 12% of global trade passes through the canal. Over 450 ships are delayed. The blockage causes an estimated $9.6B per day in disrupted trade. The ship is refloated on March 29.",
+  "affected_sectors": ["Consumer Discretionary", "Consumer Staples", "Industrials", "Energy"],
+  "affected_geographies": ["global", "europe", "asia", "middle_east"],
+  "keywords": ["suez", "ever given", "canal", "shipping", "supply chain", "logistics", "freight"],
+  "key_indicators": {
+    "trade_disrupted_per_day_usdB": 9.6,
+    "ships_delayed": 450,
+    "duration_days": 6,
+    "canal_share_global_trade_pct": 12
+  },
+  "source": "Suez Canal Authority, Lloyd's List",
+  "source_url": "https://www.reuters.com/world/middle-east/ever-given-refloated-suez-canal-rescuers-say-2021-03-29/"
+}

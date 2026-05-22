@@ -1,0 +1,24 @@
+{
+  "id": "shanghai_lockdown_60d",
+  "title": "Shanghai citywide lockdown — 60 days",
+  "category": "supply_chain",
+  "severity": 0.70,
+  "duration_days": 60,
+  "initial_shocks": {
+    "manufacturing_capacity_china": -0.45,
+    "shipping_asia_us": -0.30,
+    "semiconductor_supply": -0.20,
+    "automotive_parts_china": -0.50,
+    "port_shanghai_capacity": -0.60
+  },
+  "affected_sectors": ["manufacturing", "logistics", "automotive", "consumer_electronics", "retail"],
+  "cascade_rules": [
+    {"from": "manufacturing_capacity_china", "to": "global_supply_chain", "multiplier": 0.55},
+    {"from": "shipping_asia_us", "to": "retail_inventory", "multiplier": 0.40},
+    {"from": "automotive_parts_china", "to": "auto_production_global", "multiplier": 0.60},
+    {"from": "port_shanghai_capacity", "to": "shipping_rates", "multiplier": -0.50}
+  ],
+  "historical_analogue": "2022 Shanghai COVID-19 lockdown (April-May, worst since 2020)",
+  "source": "mimic-world team",
+  "description": "Shanghai enters a full citywide lockdown for 60 days. Port of Shanghai (world's busiest) operates at 40% capacity. Apple, Tesla, and 50,000 other manufacturers scramble to relocate production or absorb delays."
+}

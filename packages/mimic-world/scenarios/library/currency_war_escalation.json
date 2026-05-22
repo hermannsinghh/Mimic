@@ -1,0 +1,24 @@
+{
+  "id": "currency_war_escalation",
+  "title": "Currency war escalation — competitive devaluations",
+  "category": "macro",
+  "severity": 0.60,
+  "duration_days": 365,
+  "initial_shocks": {
+    "usd_cny": 0.08,
+    "usd_eur": -0.05,
+    "global_trade_volumes": -0.15,
+    "tariff_level_global": 0.20,
+    "export_competitiveness": -0.12
+  },
+  "affected_sectors": ["manufacturing", "exports", "retail", "banking", "commodities"],
+  "cascade_rules": [
+    {"from": "tariff_level_global", "to": "trade_flows", "multiplier": -0.55},
+    {"from": "usd_cny", "to": "chinese_export_competitiveness", "multiplier": -0.60},
+    {"from": "global_trade_volumes", "to": "shipping_demand", "multiplier": 0.60},
+    {"from": "export_competitiveness", "to": "manufacturing_revenue", "multiplier": 0.50}
+  ],
+  "historical_analogue": "2010-2012 'currency wars' (G20 tensions), 1930s Smoot-Hawley beggar-thy-neighbor",
+  "source": "mimic-world team",
+  "description": "Multiple central banks engage in competitive devaluations. China weakens the yuan, EU responds, US Congress threatens tariffs. Global trade volumes contract as protectionism escalates. Multinationals face impossible FX hedging decisions."
+}

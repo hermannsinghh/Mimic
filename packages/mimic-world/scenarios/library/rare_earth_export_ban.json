@@ -1,0 +1,23 @@
+{
+  "id": "rare_earth_export_ban",
+  "title": "China rare earth export ban — 90 days",
+  "category": "supply_chain",
+  "severity": 0.70,
+  "duration_days": 90,
+  "initial_shocks": {
+    "rare_earth_supply": -0.60,
+    "permanent_magnet_supply": -0.55,
+    "rare_earth_prices": 0.80,
+    "defense_component_supply": -0.40
+  },
+  "affected_sectors": ["defense", "renewable_energy", "automotive", "electronics", "industrial"],
+  "cascade_rules": [
+    {"from": "rare_earth_supply", "to": "wind_turbine_production", "multiplier": 0.55},
+    {"from": "permanent_magnet_supply", "to": "ev_motor_production", "multiplier": 0.50},
+    {"from": "rare_earth_supply", "to": "defense_systems_production", "multiplier": 0.45},
+    {"from": "rare_earth_prices", "to": "electronics_component_cost", "multiplier": 0.30}
+  ],
+  "historical_analogue": "2010 China rare earth export quota cuts (price surge 700%), 2023 gallium/germanium ban",
+  "source": "mimic-world team",
+  "description": "China bans exports of 17 rare earth elements for 90 days as geopolitical leverage. China controls 60%+ of mining and 85% of processing. Wind turbines, EV motors, F-35 components, and MRI machines face immediate supply chain collapse."
+}

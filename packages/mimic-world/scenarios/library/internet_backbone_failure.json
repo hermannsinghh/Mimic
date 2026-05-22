@@ -1,0 +1,23 @@
+{
+  "id": "internet_backbone_failure",
+  "title": "Internet backbone failure — 7-day transoceanic connectivity loss",
+  "category": "cyber",
+  "severity": 0.75,
+  "duration_days": 7,
+  "initial_shocks": {
+    "transatlantic_internet_capacity": -0.70,
+    "transpacific_internet_capacity": -0.65,
+    "cloud_services": -0.60,
+    "remote_work_capacity": -0.80
+  },
+  "affected_sectors": ["technology", "e_commerce", "finance", "media", "banking"],
+  "cascade_rules": [
+    {"from": "transatlantic_internet_capacity", "to": "international_finance_operations", "multiplier": 0.80},
+    {"from": "cloud_services", "to": "saas_business_operations", "multiplier": 0.85},
+    {"from": "remote_work_capacity", "to": "knowledge_worker_productivity", "multiplier": 0.75},
+    {"from": "transpacific_internet_capacity", "to": "asia_sourcing_coordination", "multiplier": 0.55}
+  ],
+  "historical_analogue": "2008 submarine cable cuts (Middle East, 75M users affected), BGP hijacking incidents",
+  "source": "mimic-world team",
+  "description": "Sabotage of key transoceanic submarine cables severs internet connectivity between continents. Global CDN networks cannot serve content. International banking transactions halt. Remote work becomes impossible. The global internet fragments into regional islands."
+}

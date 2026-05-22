@@ -1,0 +1,22 @@
+{
+  "id": "2021_08_hurricane_ida",
+  "title": "Hurricane Ida — Category 4 Gulf Coast landfall",
+  "date": "2021-08-29",
+  "end_date": "2021-10-15",
+  "category": "natural_disaster",
+  "severity": 0.75,
+  "description": "Hurricane Ida makes landfall near Leeville, Louisiana on August 29, 2021 as a Category 4 storm with 150 mph winds — the strongest storm to hit Louisiana since the 1850s. It knocks out power to 1M+ customers, shuts nearly all Gulf of Mexico oil and gas production, closes the ExxonMobil Baton Rouge refinery (330k bbl/day), and causes $65B+ in insured losses.",
+  "affected_sectors": ["Energy", "Industrials", "Consumer Staples", "Financials"],
+  "affected_geographies": ["united_states", "gulf_coast", "louisiana", "mississippi"],
+  "keywords": ["hurricane", "ida", "gulf coast", "louisiana", "refinery", "offshore", "natural disaster"],
+  "key_indicators": {
+    "landfall_category": 4,
+    "max_wind_mph": 150,
+    "insured_losses_usdB": 65,
+    "gulf_oil_production_shut_pct": 95,
+    "power_outages": 1000000,
+    "fatalities": 96
+  },
+  "source": "National Hurricane Center, BOEM, NOAA",
+  "source_url": "https://www.nhc.noaa.gov/data/tcr/AL092021_Ida.pdf"
+}

@@ -1,0 +1,23 @@
+{
+  "id": "lithium_supply_crunch",
+  "title": "Lithium supply crunch — battery supply chain shock",
+  "category": "supply_chain",
+  "severity": 0.65,
+  "duration_days": 180,
+  "initial_shocks": {
+    "lithium_supply": -0.45,
+    "battery_prices": 0.40,
+    "ev_production": -0.30,
+    "energy_storage_deployment": -0.35
+  },
+  "affected_sectors": ["automotive", "energy_storage", "consumer_electronics", "renewable_energy"],
+  "cascade_rules": [
+    {"from": "lithium_supply", "to": "battery_prices", "multiplier": -0.85},
+    {"from": "battery_prices", "to": "ev_production_cost", "multiplier": 0.50},
+    {"from": "ev_production", "to": "auto_revenue", "multiplier": 0.55},
+    {"from": "energy_storage_deployment", "to": "grid_renewable_integration", "multiplier": 0.40}
+  ],
+  "historical_analogue": "2022 lithium carbonate price surge (+500%), 2023 correction",
+  "source": "mimic-world team",
+  "description": "A combination of Chilean water restrictions, Australian export taxes, and Chinese cathode-maker consolidation cuts lithium availability by 45%. EV production targets are slashed. Tesla, GM, Ford all cut quarterly guidance."
+}

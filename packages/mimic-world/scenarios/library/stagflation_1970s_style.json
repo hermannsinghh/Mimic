@@ -1,0 +1,24 @@
+{
+  "id": "stagflation_1970s_style",
+  "title": "1970s-style stagflation — high inflation + stagnant growth",
+  "category": "macro",
+  "severity": 0.80,
+  "duration_days": 730,
+  "initial_shocks": {
+    "inflation_rate": 0.09,
+    "consumer_demand_us": -0.20,
+    "oil_price": 0.60,
+    "us_interest_rate": 0.06,
+    "real_wages": -0.08
+  },
+  "affected_sectors": ["retail", "manufacturing", "energy", "automotive", "real_estate"],
+  "cascade_rules": [
+    {"from": "inflation_rate", "to": "real_wages", "multiplier": -0.85},
+    {"from": "oil_price", "to": "all_production_costs", "multiplier": 0.45},
+    {"from": "real_wages", "to": "consumer_discretionary_demand", "multiplier": 0.80},
+    {"from": "us_interest_rate", "to": "mortgage_rates", "multiplier": 1.05}
+  ],
+  "historical_analogue": "1973-1982 stagflation period, 2022 stagflation fears",
+  "source": "mimic-world team",
+  "description": "Energy shock triggers stagflation: inflation runs at 9%+, real GDP stagnant. Fed faces impossible tradeoff: raise rates (cause recession) vs cut rates (worsen inflation). Real wages collapse. Consumer spending on discretionary items crashes."
+}

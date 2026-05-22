@@ -1,0 +1,24 @@
+{
+  "id": "credit_crunch_2008_style",
+  "title": "Global credit crunch — 2008-style financial system seizure",
+  "category": "macro",
+  "severity": 0.90,
+  "duration_days": 540,
+  "initial_shocks": {
+    "credit_availability": -0.65,
+    "consumer_demand_us": -0.35,
+    "business_investment": -0.55,
+    "interbank_rates": 0.15,
+    "bank_lending": -0.50
+  },
+  "affected_sectors": ["banking", "real_estate", "manufacturing", "retail", "all_sectors"],
+  "cascade_rules": [
+    {"from": "credit_availability", "to": "business_financing", "multiplier": 0.90},
+    {"from": "credit_availability", "to": "consumer_spending", "multiplier": 0.70},
+    {"from": "interbank_rates", "to": "corporate_bond_spreads", "multiplier": 0.80},
+    {"from": "bank_lending", "to": "small_business_survival", "multiplier": 0.75}
+  ],
+  "historical_analogue": "September 2008 Lehman collapse — interbank markets froze overnight",
+  "source": "mimic-world team",
+  "description": "A major financial institution fails, triggering interbank market freezes. Credit completely stops flowing. Companies cannot make payroll via commercial paper. LIBOR/SOFR spreads to 4%+. Fed and Treasury deploy emergency facilities. GDP falls 5%."
+}

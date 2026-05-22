@@ -1,0 +1,22 @@
+[
+  {
+    "event_kind": "hurricane",
+    "occurred_at": "2024-09-26T00:00:00",
+    "intensity": "cat_4",
+    "region": "Atlantic",
+    "event_url": "https://www.ncei.noaa.gov/access/billions/event/storm-1"
+  },
+  {
+    "event_kind": "hurricane",
+    "occurred_at": "2024-10-09T00:00:00",
+    "intensity": "cat_5",
+    "region": "Atlantic",
+    "event_url": "https://www.ncei.noaa.gov/access/billions/event/storm-2"
+  },
+  {
+    "event_kind": "press_conference",
+    "occurred_at": "2024-09-30T00:00:00",
+    "region": "Atlantic",
+    "event_url": "https://example.com/should-be-filtered"
+  }
+]

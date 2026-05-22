@@ -1,0 +1,21 @@
+apiVersion: mimic.scenario/v1
+kind: Scenario
+metadata:
+  name: eu-ai-act-model-risk-2026
+  version: 0.1.0
+  license: MIT
+  author_did: did:web:mimic.ai
+  mimic_version: ">=0.2.0,<0.4.0"
+spec:
+  event:
+    iri: https://mimic.ai/events/regulatory/eu-ai-act-article-13-enforcement-2026
+    duration_days: 365
+  scope:
+    tiers: [T1, T2]
+    entity_filter: "industry in ('eu_life_insurance','eu_health_insurance')"
+  mc:
+    paths: 5000
+    horizon_days: 365
+    seed_global: 0xEUA12026
+  reloop: false
+  budget_usd: 150

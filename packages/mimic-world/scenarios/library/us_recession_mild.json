@@ -1,0 +1,24 @@
+{
+  "id": "us_recession_mild",
+  "title": "US mild recession — two quarters of negative GDP",
+  "category": "macro",
+  "severity": 0.55,
+  "duration_days": 270,
+  "initial_shocks": {
+    "consumer_demand_us": -0.20,
+    "business_investment": -0.25,
+    "unemployment": 0.02,
+    "housing_starts": -0.30,
+    "retail_sales": -0.15
+  },
+  "affected_sectors": ["retail", "manufacturing", "real_estate", "consumer_discretionary", "advertising"],
+  "cascade_rules": [
+    {"from": "consumer_demand_us", "to": "retail_revenue", "multiplier": 0.75},
+    {"from": "business_investment", "to": "capex_spending", "multiplier": 0.85},
+    {"from": "unemployment", "to": "consumer_spending", "multiplier": -0.80},
+    {"from": "housing_starts", "to": "construction_materials_demand", "multiplier": 0.70}
+  ],
+  "historical_analogue": "2001 dot-com recession, 1990-91 Gulf War recession",
+  "source": "mimic-world team",
+  "description": "A mild technical recession: two consecutive quarters of GDP contraction (-0.5% to -1.5%). Unemployment rises 2pp. Consumer discretionary spending falls sharply. Companies freeze hiring and cut marketing budgets. Recovery begins within 9 months."
+}

@@ -1,0 +1,21 @@
+apiVersion: mimic.scenario/v1
+kind: Scenario
+metadata:
+  name: 2008-gfc-bank-cascade
+  version: 0.1.0
+  license: MIT
+  author_did: did:web:mimic.ai
+  mimic_version: ">=0.2.0,<0.4.0"
+spec:
+  event:
+    iri: https://mimic.ai/events/banking/lehman-collapse-2008-09
+    duration_days: 90
+  scope:
+    tiers: [T1, T2]
+    entity_filter: "industry == 'gsib' or counterparty_of('lehman') == true"
+  mc:
+    paths: 10000
+    horizon_days: 365
+    seed_global: 0x20080915
+  reloop: true
+  budget_usd: 300

@@ -1,0 +1,23 @@
+{
+  "id": "critical_infrastructure_cyberattack",
+  "title": "Critical infrastructure cyberattack — power grid and financial system",
+  "category": "cyber",
+  "severity": 0.80,
+  "duration_days": 14,
+  "initial_shocks": {
+    "power_grid_capacity": -0.35,
+    "financial_system_availability": -0.30,
+    "water_treatment_capacity": -0.25,
+    "manufacturing_uptime": -0.40
+  },
+  "affected_sectors": ["utilities", "finance", "healthcare", "manufacturing", "government"],
+  "cascade_rules": [
+    {"from": "power_grid_capacity", "to": "manufacturing_output", "multiplier": 0.65},
+    {"from": "financial_system_availability", "to": "commerce_volume", "multiplier": 0.80},
+    {"from": "power_grid_capacity", "to": "healthcare_system_capacity", "multiplier": 0.45},
+    {"from": "manufacturing_uptime", "to": "supply_chain_output", "multiplier": 0.55}
+  ],
+  "historical_analogue": "Colonial Pipeline 2021 ($4.4M ransom), Ukraine grid attacks 2015-2016, Volt Typhoon 2024",
+  "source": "mimic-world team",
+  "description": "Nation-state actors simultaneously attack US power grid control systems and SWIFT financial messaging. Rolling blackouts hit manufacturing centers. Card payment networks go offline. Hospitals switch to backup generators. National Guard deploys."
+}

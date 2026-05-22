@@ -1,0 +1,25 @@
+{
+  "id": "us_recession_severe",
+  "title": "US severe recession — deep GDP contraction",
+  "category": "macro",
+  "severity": 0.85,
+  "duration_days": 540,
+  "initial_shocks": {
+    "consumer_demand_us": -0.40,
+    "business_investment": -0.50,
+    "credit_availability": -0.45,
+    "unemployment": 0.06,
+    "housing_prices": -0.25,
+    "corporate_earnings": -0.35
+  },
+  "affected_sectors": ["all_sectors", "banking", "real_estate", "manufacturing", "retail"],
+  "cascade_rules": [
+    {"from": "consumer_demand_us", "to": "retail_revenue", "multiplier": 0.85},
+    {"from": "credit_availability", "to": "business_survival", "multiplier": 0.75},
+    {"from": "unemployment", "to": "consumer_confidence", "multiplier": -0.70},
+    {"from": "corporate_earnings", "to": "stock_buybacks", "multiplier": 0.90}
+  ],
+  "historical_analogue": "2008-2009 Great Recession (GDP -4.3%, unemployment peak 10%)",
+  "source": "mimic-world team",
+  "description": "A severe recession triggered by financial system stress. GDP contracts 4%+. Unemployment peaks at 8-10%. Credit markets seize. Companies with weak balance sheets face bankruptcy. Recovery takes 18+ months. Fed goes to zero rates."
+}

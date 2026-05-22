@@ -1,0 +1,23 @@
+{
+  "id": "taiwan_strait_closure_30d",
+  "title": "Taiwan Strait closure — 30-day blockade",
+  "category": "geopolitical",
+  "severity": 0.85,
+  "duration_days": 30,
+  "initial_shocks": {
+    "semiconductor_supply": -0.65,
+    "shipping_asia_us": -0.40,
+    "usd_twd": 0.08,
+    "taiwan_manufacturing_capacity": -0.70
+  },
+  "affected_sectors": ["technology", "automotive", "consumer_electronics", "semiconductors"],
+  "cascade_rules": [
+    {"from": "semiconductor_supply", "to": "auto_production", "multiplier": 0.70},
+    {"from": "semiconductor_supply", "to": "consumer_electronics_production", "multiplier": 0.80},
+    {"from": "shipping_asia_us", "to": "retail_inventory", "multiplier": 0.50},
+    {"from": "taiwan_manufacturing_capacity", "to": "semiconductor_spot_price", "multiplier": -0.90}
+  ],
+  "historical_analogue": "2021 global chip shortage",
+  "source": "mimic-world team",
+  "description": "A military blockade of the Taiwan Strait lasting 30 days. TSMC production is disrupted. Container shipping reroutes at severe cost. Advanced semiconductor supply to global manufacturers collapses."
+}

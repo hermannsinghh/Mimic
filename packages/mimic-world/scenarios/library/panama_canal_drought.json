@@ -1,0 +1,23 @@
+{
+  "id": "panama_canal_drought",
+  "title": "Panama Canal drought — 90-day capacity restriction",
+  "category": "supply_chain",
+  "severity": 0.55,
+  "duration_days": 90,
+  "initial_shocks": {
+    "shipping_asia_us_east": -0.35,
+    "shipping_rates": 0.25,
+    "grain_export_capacity": -0.20,
+    "lng_shipping_us_to_asia": -0.30
+  },
+  "affected_sectors": ["logistics", "agriculture", "energy", "retail"],
+  "cascade_rules": [
+    {"from": "shipping_asia_us_east", "to": "retail_inventory_us_east", "multiplier": 0.40},
+    {"from": "grain_export_capacity", "to": "food_prices_global", "multiplier": 0.25},
+    {"from": "lng_shipping_us_to_asia", "to": "natural_gas_prices_asia", "multiplier": 0.35},
+    {"from": "shipping_rates", "to": "agricultural_export_cost", "multiplier": 0.30}
+  ],
+  "historical_analogue": "2023 Panama Canal severe drought — max draft restrictions cut throughput 36%",
+  "source": "mimic-world team",
+  "description": "Historic drought drops Gatun Lake to record lows. Panama Canal limits ship drafts to 44 feet, cutting throughput by 35%. US grain and LNG exports to Asia are severely disrupted. Vessels reroute via Suez or Cape Horn."
+}

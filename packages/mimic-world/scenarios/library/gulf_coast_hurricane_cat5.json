@@ -1,0 +1,24 @@
+{
+  "id": "gulf_coast_hurricane_cat5",
+  "title": "Gulf Coast Category 5 hurricane — direct refinery hit",
+  "category": "climate",
+  "severity": 0.75,
+  "duration_days": 60,
+  "initial_shocks": {
+    "oil_refinery_capacity_gulf": -0.45,
+    "natural_gas_production": -0.20,
+    "logistics_southeast_us": -0.35,
+    "oil_price": 0.18,
+    "insurance_losses": 0.80
+  },
+  "affected_sectors": ["energy", "insurance", "chemicals", "logistics", "agriculture"],
+  "cascade_rules": [
+    {"from": "oil_refinery_capacity_gulf", "to": "gasoline_prices", "multiplier": 0.70},
+    {"from": "logistics_southeast_us", "to": "supply_chain_us_south", "multiplier": 0.45},
+    {"from": "natural_gas_production", "to": "electricity_prices", "multiplier": 0.35},
+    {"from": "insurance_losses", "to": "reinsurance_rates", "multiplier": 0.55}
+  ],
+  "historical_analogue": "Hurricane Katrina 2005 ($125B losses), Hurricane Harvey 2017 ($125B losses)",
+  "source": "mimic-world team",
+  "description": "A Category 5 hurricane makes direct landfall on the Houston Ship Channel, disabling 45% of US refining capacity. Gas prices spike nationally. Chemical plants along the Gulf Coast shut down. Insurance industry faces record losses."
+}

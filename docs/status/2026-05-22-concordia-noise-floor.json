@@ -1,0 +1,31 @@
+{
+  "adr_ref": "decision-record/2026-05-21-runner-equivalence-criterion.md",
+  "dry_run": false,
+  "max_tv_per_group": {
+    "__global_action_type__": 0.0
+  },
+  "max_w1_per_group": {
+    "hold": 0.0
+  },
+  "mean_tv_per_group": {
+    "__global_action_type__": 0.0
+  },
+  "mean_w1_per_group": {
+    "hold": 0.0
+  },
+  "model": "deepseek-chat",
+  "model_version": "v3.2",
+  "n_pairs": 6,
+  "per_group_sample_counts": {
+    "hold": 8
+  },
+  "provider": "deepseek",
+  "scenario": "svb-replay-2023",
+  "schema": "mimic.f12.noise_floor/v1",
+  "seeds": [
+    1470828807,
+    3405705229,
+    537397525,
+    1809301231
+  ]
+}

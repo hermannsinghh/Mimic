@@ -1,0 +1,25 @@
+{
+  "id": "middle_east_oil_disruption",
+  "title": "Middle East regional war — major oil infrastructure attacked",
+  "category": "geopolitical",
+  "severity": 0.72,
+  "duration_days": 60,
+  "initial_shocks": {
+    "oil_supply": -0.25,
+    "oil_price": 0.45,
+    "shipping_capacity_global": -0.10,
+    "natural_gas_supply": -0.15,
+    "shipping_rates": 0.30
+  },
+  "affected_sectors": ["energy", "aviation", "chemicals", "plastics", "logistics"],
+  "cascade_rules": [
+    {"from": "oil_price", "to": "jet_fuel_cost", "multiplier": 0.85},
+    {"from": "oil_price", "to": "plastics_cost", "multiplier": 0.60},
+    {"from": "oil_price", "to": "fertilizer_cost", "multiplier": 0.55},
+    {"from": "shipping_rates", "to": "consumer_goods_prices", "multiplier": 0.20},
+    {"from": "oil_price", "to": "inflation_rate", "multiplier": 0.15}
+  ],
+  "historical_analogue": "1990-91 Gulf War oil shock, 2019 Saudi Aramco drone attack",
+  "source": "mimic-world team",
+  "description": "Missile strikes on Saudi Aramco facilities and key Gulf terminals disrupt 25% of global oil supply. Brent crude spikes 45%. Airlines immediately hedge and cut routes. Plastics and chemical manufacturers face margin compression."
+}

@@ -1,0 +1,23 @@
+{
+  "id": "last_mile_fuel_crisis",
+  "title": "Last-mile fuel crisis — diesel shortage collapses delivery networks",
+  "category": "supply_chain",
+  "severity": 0.50,
+  "duration_days": 60,
+  "initial_shocks": {
+    "delivery_capacity": -0.30,
+    "logistics_cost": 0.40,
+    "diesel_price": 0.55,
+    "trucking_capacity": -0.25
+  },
+  "affected_sectors": ["e-commerce", "retail", "food_delivery", "logistics", "manufacturing"],
+  "cascade_rules": [
+    {"from": "logistics_cost", "to": "e_commerce_margins", "multiplier": 0.55},
+    {"from": "trucking_capacity", "to": "retail_replenishment", "multiplier": 0.45},
+    {"from": "diesel_price", "to": "food_distribution_cost", "multiplier": 0.40},
+    {"from": "delivery_capacity", "to": "consumer_goods_availability", "multiplier": 0.35}
+  ],
+  "historical_analogue": "2021-2022 US diesel shortage, 2022 UK trucker shortage",
+  "source": "mimic-world team",
+  "description": "A refinery closure combined with a truck driver shortage causes diesel to hit $7/gallon. Amazon Prime delivery SLAs slip to 5-7 days. Grocery chains report empty shelves as replenishment cycles break down. FedEx and UPS add emergency fuel surcharges."
+}

@@ -1,0 +1,21 @@
+[project]
+name = "mimic-monorepo"
+version = "0.2.0-alpha.0"
+description = "Mimic 2.0 — audit-grade stress-testing SDK monorepo (uv workspace root)"
+requires-python = ">=3.11"
+
+[tool.uv.workspace]
+members = [
+    "packages/mimic-framework",
+    "packages/mimic-forecast",
+    "packages/mimic-world",
+    "packages/mimic-sim",
+    "packages/mimic-signal",
+    "packages/mimic-bench",
+    "hub",
+]
+
+[tool.mimic]
+plan = "PLAN.md"
+fibo-version = "2025-Q3"
+schema-major = 1

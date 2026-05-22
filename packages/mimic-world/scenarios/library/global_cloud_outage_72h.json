@@ -1,0 +1,23 @@
+{
+  "id": "global_cloud_outage_72h",
+  "title": "Global cloud platform outage — 72-hour multi-region failure",
+  "category": "cyber",
+  "severity": 0.70,
+  "duration_days": 3,
+  "initial_shocks": {
+    "cloud_availability": -0.80,
+    "e_commerce_revenue": -0.65,
+    "digital_services": -0.70,
+    "saas_availability": -0.75
+  },
+  "affected_sectors": ["technology", "retail", "finance", "logistics", "media"],
+  "cascade_rules": [
+    {"from": "cloud_availability", "to": "e_commerce_transactions", "multiplier": 0.85},
+    {"from": "e_commerce_revenue", "to": "retail_daily_revenue", "multiplier": 0.60},
+    {"from": "digital_services", "to": "advertising_revenue", "multiplier": 0.70},
+    {"from": "saas_availability", "to": "enterprise_productivity", "multiplier": 0.55}
+  ],
+  "historical_analogue": "2021 AWS us-east-1 outage, 2023 Azure multi-region outage, CrowdStrike 2024",
+  "source": "mimic-world team",
+  "description": "A cascading failure in BGP routing tables combined with DNS infrastructure issues takes down all three major cloud providers for 72 hours. Amazon, Walmart, Netflix, Zoom, Slack, GitHub, and 80% of the internet becomes unavailable. $15B/day in e-commerce evaporates."
+}

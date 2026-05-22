@@ -1,0 +1,21 @@
+{
+  "id": "2021_10_port_la_congestion",
+  "title": "Port of LA/Long Beach congestion — supply chain crisis",
+  "date": "2021-10-01",
+  "end_date": "2021-12-31",
+  "category": "supply_chain",
+  "severity": 0.78,
+  "description": "The Port of LA/Long Beach — handling 40% of US containerized imports — becomes severely congested, with up to 100 ships anchored offshore awaiting berths. Wait times reach 3–4 weeks. Container spot rates hit $20,000+ per 40ft box. Retailers charter private vessels and divert to East Coast ports. Biden administration announces 24/7 operations on October 13, 2021, but congestion persists through the holiday season.",
+  "affected_sectors": ["Consumer Discretionary", "Consumer Staples", "Technology", "Industrials"],
+  "affected_geographies": ["united_states", "west_coast"],
+  "keywords": ["port", "los angeles", "long beach", "congestion", "shipping", "supply chain", "freight", "container", "logistics"],
+  "key_indicators": {
+    "ships_waiting_peak": 100,
+    "avg_wait_days": 22,
+    "container_rate_peak_usd_40ft": 20400,
+    "pre_covid_rate_usd_40ft": 2000,
+    "port_share_us_imports_pct": 40
+  },
+  "source": "Marine Exchange of Southern California, Freightos",
+  "source_url": "https://www.wsj.com/articles/holiday-shopping-shipping-delays-supply-chain-11633608422"
+}

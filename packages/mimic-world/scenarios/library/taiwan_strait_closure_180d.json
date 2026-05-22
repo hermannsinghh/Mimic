@@ -1,0 +1,26 @@
+{
+  "id": "taiwan_strait_closure_180d",
+  "title": "Taiwan Strait closure — 180-day blockade",
+  "category": "geopolitical",
+  "severity": 0.95,
+  "duration_days": 180,
+  "initial_shocks": {
+    "semiconductor_supply": -0.80,
+    "shipping_asia_us": -0.60,
+    "usd_twd": 0.15,
+    "taiwan_manufacturing_capacity": -0.85,
+    "consumer_electronics_production": -0.55,
+    "global_gdp_growth": -0.03
+  },
+  "affected_sectors": ["technology", "automotive", "consumer_electronics", "semiconductors", "defense"],
+  "cascade_rules": [
+    {"from": "semiconductor_supply", "to": "auto_production", "multiplier": 0.75},
+    {"from": "semiconductor_supply", "to": "consumer_electronics_production", "multiplier": 0.90},
+    {"from": "semiconductor_supply", "to": "medical_device_production", "multiplier": 0.40},
+    {"from": "shipping_asia_us", "to": "retail_inventory", "multiplier": 0.60},
+    {"from": "global_gdp_growth", "to": "consumer_demand_us", "multiplier": 1.20}
+  ],
+  "historical_analogue": "N/A — unprecedented in modern era",
+  "source": "mimic-world team",
+  "description": "A prolonged 6-month Taiwan Strait blockade. TSMC and all Taiwan-based manufacturers effectively offline for advanced nodes. Global semiconductor supply permanently restructures. Second-worst economic shock since WWII."
+}

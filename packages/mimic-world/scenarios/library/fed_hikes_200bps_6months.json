@@ -1,0 +1,24 @@
+{
+  "id": "fed_hikes_200bps_6months",
+  "title": "Federal Reserve emergency hikes 200bps in 6 months",
+  "category": "macro",
+  "severity": 0.65,
+  "duration_days": 180,
+  "initial_shocks": {
+    "us_interest_rate": 0.02,
+    "credit_availability": -0.25,
+    "consumer_confidence": -0.15,
+    "mortgage_rates": 0.025,
+    "growth_stock_valuations": -0.35
+  },
+  "affected_sectors": ["real_estate", "banking", "consumer_discretionary", "technology_growth", "private_equity"],
+  "cascade_rules": [
+    {"from": "us_interest_rate", "to": "mortgage_rates", "multiplier": 1.10},
+    {"from": "credit_availability", "to": "startup_funding", "multiplier": -0.80},
+    {"from": "consumer_confidence", "to": "consumer_spending", "multiplier": 0.65},
+    {"from": "growth_stock_valuations", "to": "tech_capex", "multiplier": 0.45}
+  ],
+  "historical_analogue": "2022 Fed rate hike cycle (425bps in 12 months — fastest since 1980)",
+  "source": "mimic-world team",
+  "description": "Persistent inflation forces the Fed to hike 200bps over 6 months. Housing affordability collapses. Growth stocks (high-multiple tech) re-rate violently lower. Venture funding freezes. Companies with floating-rate debt face margin compression."
+}

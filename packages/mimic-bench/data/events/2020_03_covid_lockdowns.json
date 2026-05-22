@@ -1,0 +1,20 @@
+{
+  "id": "2020_03_covid_lockdowns",
+  "title": "COVID-19 global lockdowns — WHO declares pandemic",
+  "date": "2020-03-11",
+  "end_date": "2020-04-30",
+  "category": "pandemic",
+  "severity": 1.0,
+  "description": "WHO declares COVID-19 a pandemic on March 11, 2020. Within days, major economies enter lockdown closing all non-essential businesses. The S&P 500 enters the fastest bear market in history (-34% from peak). CARES Act ($2.2T) signed March 27. Airlines grounded, retail shuttered, white-collar workforce shifts to remote work.",
+  "affected_sectors": ["all"],
+  "affected_geographies": ["global"],
+  "keywords": ["covid", "pandemic", "lockdown", "remote work", "CARES Act", "supply chain", "demand shock"],
+  "key_indicators": {
+    "sp500_drawdown": "-34%",
+    "vix_peak": 82.69,
+    "us_gdp_q2_2020_annualized": "-31.4%",
+    "unemployment_peak_april_2020": "14.7%"
+  },
+  "source": "WHO, Federal Reserve, US BLS",
+  "source_url": "https://www.who.int/news/item/11-03-2020-who-director-general-s-opening-remarks-at-the-media-briefing-on-covid-19---11-march-2020"
+}

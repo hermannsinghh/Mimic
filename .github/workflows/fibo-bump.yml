@@ -1,0 +1,27 @@
+name: fibo-bump
+
+on:
+  schedule:
+    - cron: "0 8 1 */3 *"  # 08:00 UTC on the 1st of every 3rd month
+  workflow_dispatch:
+
+jobs:
+  check-edm-council:
+    name: Check for new FIBO release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Read currently-pinned FIBO version
+        id: current
+        run: |
+          ver=$(python -c "import tomllib, pathlib; data = tomllib.loads(pathlib.Path('packages/mimic-framework/pyproject.toml').read_text()); print(data.get('tool', {}).get('mimic', {}).get('fibo-version', 'unknown'))")
+          echo "version=$ver" >> "$GITHUB_OUTPUT"
+          echo "Currently pinned: $ver"
+      - name: Probe EDM Council release feed
+        run: |
+          echo "TODO: query https://spec.edmcouncil.org/fibo/release-notes for newer release"
+          echo "If a newer release is available, open a PR bumping fibo-version in pyproject.toml"
+          echo "and tag @schema-reviewers. NEVER auto-merge — bumps require schema-bump skill review."

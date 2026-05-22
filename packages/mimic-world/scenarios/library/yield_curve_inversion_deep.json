@@ -1,0 +1,23 @@
+{
+  "id": "yield_curve_inversion_deep",
+  "title": "Deep yield curve inversion — recession signal",
+  "category": "macro",
+  "severity": 0.50,
+  "duration_days": 270,
+  "initial_shocks": {
+    "long_term_rates": -0.005,
+    "consumer_confidence": -0.12,
+    "bank_net_interest_margins": -0.20,
+    "recession_probability": 0.35
+  },
+  "affected_sectors": ["banking", "real_estate", "insurance", "consumer_discretionary"],
+  "cascade_rules": [
+    {"from": "bank_net_interest_margins", "to": "bank_lending_appetite", "multiplier": 0.55},
+    {"from": "recession_probability", "to": "business_investment", "multiplier": -0.50},
+    {"from": "consumer_confidence", "to": "big_ticket_purchases", "multiplier": 0.65},
+    {"from": "long_term_rates", "to": "mortgage_availability", "multiplier": -0.40}
+  ],
+  "historical_analogue": "2019 yield curve inversion (10yr-2yr -0.52%), 2006-07 pre-GFC inversion",
+  "source": "mimic-world team",
+  "description": "The 10-year/2-year Treasury yield spread inverts to -100bps — the deepest inversion in 40 years. Banks' net interest margins collapse. Recession expectations rise to 65%. CEOs defer capex decisions. Housing market activity freezes."
+}

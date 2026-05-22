@@ -1,0 +1,23 @@
+{
+  "id": "north_atlantic_current_slowdown",
+  "title": "North Atlantic Meridional Overturning Circulation collapse",
+  "category": "climate",
+  "severity": 0.65,
+  "duration_days": 1825,
+  "initial_shocks": {
+    "agriculture_europe": -0.18,
+    "shipping_north_atlantic": 0.05,
+    "energy_demand_europe": 0.25,
+    "uk_temperature_drop": -0.08
+  },
+  "affected_sectors": ["agriculture", "energy", "insurance", "shipping", "real_estate"],
+  "cascade_rules": [
+    {"from": "agriculture_europe", "to": "crop_yields_northern_europe", "multiplier": 0.50},
+    {"from": "energy_demand_europe", "to": "natural_gas_demand", "multiplier": 0.55},
+    {"from": "uk_temperature_drop", "to": "heating_costs_uk", "multiplier": 0.65},
+    {"from": "shipping_north_atlantic", "to": "transatlantic_shipping_cost", "multiplier": 0.30}
+  ],
+  "historical_analogue": "AMOC weakening 15% since 1950; 2023 studies show approaching tipping point",
+  "source": "mimic-world team",
+  "description": "The Atlantic Meridional Overturning Circulation weakens dramatically, causing Northwestern Europe to cool 3-5°C over 5 years. UK growing season shortens by 6 weeks. Energy demand surges. Northern European agriculture faces permanent restructuring."
+}

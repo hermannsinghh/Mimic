@@ -1,0 +1,23 @@
+{
+  "id": "mississippi_river_drought",
+  "title": "Mississippi River drought — barge traffic paralysis",
+  "category": "climate",
+  "severity": 0.55,
+  "duration_days": 120,
+  "initial_shocks": {
+    "agricultural_transport": -0.40,
+    "grain_export_capacity": -0.35,
+    "fertilizer_transport": -0.25,
+    "coal_barge_transport": -0.30
+  },
+  "affected_sectors": ["agriculture", "logistics", "food_processing", "commodities", "energy"],
+  "cascade_rules": [
+    {"from": "grain_export_capacity", "to": "food_prices_global", "multiplier": 0.50},
+    {"from": "fertilizer_transport", "to": "crop_yields_next_season", "multiplier": 0.35},
+    {"from": "agricultural_transport", "to": "corn_soybean_prices", "multiplier": 0.45},
+    {"from": "coal_barge_transport", "to": "electricity_prices_midwest", "multiplier": 0.25}
+  ],
+  "historical_analogue": "2012 Mississippi River drought (record low water), 2022 drought (barge capacity -25%)",
+  "source": "mimic-world team",
+  "description": "Extreme drought drops the Mississippi River to historic lows. Barge traffic — carrying 60% of US grain exports — comes to near-standstill. Farmers cannot move crops to Gulf ports. ADM, Cargill, Bunge face massive logistics crises."
+}

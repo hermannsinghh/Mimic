@@ -1,0 +1,36 @@
+{
+  "schema_major": 1,
+  "comment": "Golden world_state_hash vectors. Plan §7.2. Refresh requires schema major bump + ADR.",
+  "vectors": [
+    {
+      "name": "empty_world",
+      "input": {
+        "entity_graph_state": {},
+        "agent_memory_state": {},
+        "market_state": {},
+        "time_step": 0
+      },
+      "expected_hash": "4bc1619b8061af3483c0510984e60a327babeba0f3177181615e63b7c48e0857"
+    },
+    {
+      "name": "tiny_svb_world",
+      "input": {
+        "entity_graph_state": {"svb": {"tier": "T2", "assets": 209.0}},
+        "agent_memory_state": {"did:web:svb": {"last_decision": "hold"}},
+        "market_state": {"usd_10y": 0.0395, "spx": 4045.64},
+        "time_step": "2023-03-08T15:00:00Z"
+      },
+      "expected_hash": "92df63def116e31855284a72ecf1034290e144dddb15760923c598fe172d5c8b"
+    },
+    {
+      "name": "key_order_independence_ab",
+      "input": {
+        "entity_graph_state": {"a": 1, "b": 2},
+        "agent_memory_state": {},
+        "market_state": {},
+        "time_step": 0
+      },
+      "expected_hash": "3761678c8d97935b9cc3ab84fb871ed2ebf92e1744df28256278a1fe76ee8dc9"
+    }
+  ]
+}

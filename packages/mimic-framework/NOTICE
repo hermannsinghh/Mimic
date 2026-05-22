@@ -1,0 +1,11 @@
+mimic-framework
+Copyright 2026 Mimic AI
+
+Licensed under the Business Source License 1.1 (the "License").
+You may not use this file except in compliance with the License.
+A copy of the License is included in LICENSE-BSL.
+The License converts to Apache 2.0 on the date in LICENSE-CHANGE-DATE.
+
+This product includes software derived from:
+- Google DeepMind Concordia (Apache 2.0) — see mimic-concordia/ submodule
+- FIBO 2025-Q3 ontology (EDM Council license) — translators only

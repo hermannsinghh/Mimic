@@ -1,0 +1,47 @@
+name: test
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    name: pytest ${{ matrix.package }} (py${{ matrix.python }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.11", "3.12"]
+        package:
+          - mimic-framework
+          - mimic-forecast
+          - mimic-world
+          - mimic-sim
+          - mimic-signal
+          - mimic-bench
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+      - name: Install package
+        working-directory: packages/${{ matrix.package }}
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]" || pip install -e .
+      - name: pytest
+        working-directory: packages/${{ matrix.package }}
+        run: pytest tests/ -q --tb=short
+
+  eval-harness:
+    name: pytest eval/harness
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install pytest numpy
+      - run: pytest eval/harness/tests/ -q --tb=short

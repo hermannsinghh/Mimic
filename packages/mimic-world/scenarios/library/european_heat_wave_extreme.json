@@ -1,0 +1,24 @@
+{
+  "id": "european_heat_wave_extreme",
+  "title": "European extreme heat wave — 48°C peak, 30-day duration",
+  "category": "climate",
+  "severity": 0.60,
+  "duration_days": 30,
+  "initial_shocks": {
+    "manufacturing_capacity_europe": -0.25,
+    "electricity_demand_europe": 0.35,
+    "agriculture_europe": -0.25,
+    "worker_productivity_europe": -0.20,
+    "nuclear_power_france": -0.30
+  },
+  "affected_sectors": ["manufacturing", "energy", "agriculture", "transportation", "healthcare"],
+  "cascade_rules": [
+    {"from": "electricity_demand_europe", "to": "electricity_prices_europe", "multiplier": 0.65},
+    {"from": "worker_productivity_europe", "to": "manufacturing_output", "multiplier": 0.60},
+    {"from": "nuclear_power_france", "to": "electricity_prices_europe", "multiplier": 0.40},
+    {"from": "agriculture_europe", "to": "food_prices_europe", "multiplier": 0.35}
+  ],
+  "historical_analogue": "2003 European heat wave (35,000 deaths), 2022 heat wave (61,000 deaths)",
+  "source": "mimic-world team",
+  "description": "Temperatures hit 48°C across France, Germany, and the UK. French nuclear plants cannot use warm river water for cooling and reduce output 30%. Manufacturing productivity collapses. Rail lines buckle. Harvest yields fall sharply."
+}

@@ -1,0 +1,23 @@
+{
+  "id": "major_airline_strike",
+  "title": "Major airline pilot strike — 21 days",
+  "category": "supply_chain",
+  "severity": 0.40,
+  "duration_days": 21,
+  "initial_shocks": {
+    "airline_capacity": -0.35,
+    "air_freight_capacity": -0.30,
+    "business_travel_capacity": -0.40,
+    "perishable_air_freight": -0.45
+  },
+  "affected_sectors": ["aviation", "logistics", "tourism", "perishables", "pharmaceuticals"],
+  "cascade_rules": [
+    {"from": "air_freight_capacity", "to": "perishable_supply", "multiplier": 0.55},
+    {"from": "airline_capacity", "to": "business_travel", "multiplier": 0.70},
+    {"from": "perishable_air_freight", "to": "food_prices_premium", "multiplier": 0.35},
+    {"from": "air_freight_capacity", "to": "pharmaceutical_cold_chain", "multiplier": 0.30}
+  ],
+  "historical_analogue": "2019 British Airways cabin crew strike, 2022 US pilot shortage",
+  "source": "mimic-world team",
+  "description": "Major US carrier pilots strike over pay and scheduling. Airline cancels 60% of flights for three weeks. Air freight collapses. Perishable produce, pharmaceuticals, and overnight packages pile up. Business travel halts."
+}

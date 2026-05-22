@@ -1,0 +1,23 @@
+{
+  "id": "coral_bleaching_supply_chain",
+  "title": "Mass coral bleaching — Pacific seafood and tourism collapse",
+  "category": "climate",
+  "severity": 0.40,
+  "duration_days": 180,
+  "initial_shocks": {
+    "seafood_supply_pacific": -0.30,
+    "tourism_pacific": -0.25,
+    "fish_prices": 0.35,
+    "aquaculture_feed": 0.20
+  },
+  "affected_sectors": ["food", "tourism", "insurance", "retail"],
+  "cascade_rules": [
+    {"from": "seafood_supply_pacific", "to": "seafood_prices", "multiplier": 0.55},
+    {"from": "tourism_pacific", "to": "pacific_island_economies", "multiplier": 0.70},
+    {"from": "fish_prices", "to": "restaurant_costs", "multiplier": 0.40},
+    {"from": "aquaculture_feed", "to": "farmed_salmon_prices", "multiplier": 0.30}
+  ],
+  "historical_analogue": "2016 and 2022 Great Barrier Reef bleaching events, 2023 record ocean temperatures",
+  "source": "mimic-world team",
+  "description": "Record ocean temperatures cause the most severe coral bleaching event in recorded history. Pacific fishing yields collapse by 30%. Tourism to reef destinations falls as underwater ecosystems visibly die. Seafood restaurants and sushi chains face supply crises."
+}

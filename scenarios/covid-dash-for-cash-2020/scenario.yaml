@@ -1,0 +1,21 @@
+apiVersion: mimic.scenario/v1
+kind: Scenario
+metadata:
+  name: covid-dash-for-cash-2020
+  version: 0.1.0
+  license: MIT
+  author_did: did:web:mimic.ai
+  mimic_version: ">=0.2.0,<0.4.0"
+spec:
+  event:
+    iri: https://mimic.ai/events/liquidity/covid-dash-for-cash-2020-03
+    duration_days: 21
+  scope:
+    tiers: [T1, T2]
+    entity_filter: "industry in ('gsib','primary_dealer','money_market_fund')"
+  mc:
+    paths: 5000
+    horizon_days: 60
+    seed_global: 0xC0V1D2020
+  reloop: false
+  budget_usd: 100

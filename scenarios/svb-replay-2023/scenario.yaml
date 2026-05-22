@@ -1,0 +1,21 @@
+apiVersion: mimic.scenario/v1
+kind: Scenario
+metadata:
+  name: svb-replay-2023
+  version: 0.1.0
+  license: MIT
+  author_did: did:web:mimic.ai
+  mimic_version: ">=0.2.0,<0.4.0"
+spec:
+  event:
+    iri: https://mimic.ai/events/bank-run/svb-2023-03
+    duration_days: 5
+  scope:
+    tiers: [T1, T2]
+    entity_filter: "industry == 'us_regional_bank'"
+  mc:
+    paths: 1000
+    horizon_days: 30
+    seed_global: 0x57AB1107
+  reloop: false
+  budget_usd: 50

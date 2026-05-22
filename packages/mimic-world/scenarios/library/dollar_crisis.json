@@ -1,0 +1,24 @@
+{
+  "id": "dollar_crisis",
+  "title": "US dollar crisis — rapid devaluation and reserve currency doubt",
+  "category": "macro",
+  "severity": 0.80,
+  "duration_days": 180,
+  "initial_shocks": {
+    "usd_eur": -0.15,
+    "usd_cny": -0.12,
+    "oil_price": 0.25,
+    "gold_price": 0.35,
+    "us_treasury_yields": 0.03
+  },
+  "affected_sectors": ["banking", "energy", "commodities", "imports", "technology"],
+  "cascade_rules": [
+    {"from": "usd_eur", "to": "us_import_costs", "multiplier": -0.60},
+    {"from": "usd_eur", "to": "us_export_competitiveness", "multiplier": 0.40},
+    {"from": "oil_price", "to": "inflation_rate", "multiplier": 0.20},
+    {"from": "us_treasury_yields", "to": "corporate_borrowing_cost", "multiplier": 1.10}
+  ],
+  "historical_analogue": "1971 Nixon shock, 1985 Plaza Accord, 2011 debt ceiling crisis",
+  "source": "mimic-world team",
+  "description": "A crisis of confidence in the US dollar following a debt ceiling standoff and credit rating downgrade. The dollar weakens 15% vs the Euro in 6 months. Oil and commodities priced in dollars spike. Import inflation hits US consumers hard."
+}

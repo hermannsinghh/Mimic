@@ -1,0 +1,24 @@
+{
+  "id": "japan_earthquake_9",
+  "title": "Japan magnitude 9.0 earthquake — industrial heartland direct hit",
+  "category": "climate",
+  "severity": 0.80,
+  "duration_days": 90,
+  "initial_shocks": {
+    "manufacturing_capacity_japan": -0.55,
+    "semiconductor_supply": -0.25,
+    "automotive_japan": -0.45,
+    "chemical_supply_japan": -0.35,
+    "nuclear_power_japan": -0.40
+  },
+  "affected_sectors": ["automotive", "electronics", "semiconductors", "insurance", "chemicals"],
+  "cascade_rules": [
+    {"from": "manufacturing_capacity_japan", "to": "global_supply_chain", "multiplier": 0.55},
+    {"from": "automotive_japan", "to": "auto_parts_global", "multiplier": 0.65},
+    {"from": "semiconductor_supply", "to": "consumer_electronics", "multiplier": 0.50},
+    {"from": "nuclear_power_japan", "to": "lng_demand_japan", "multiplier": 0.70}
+  ],
+  "historical_analogue": "2011 Tōhoku earthquake and tsunami (Fukushima, $235B losses, 6-month auto impact)",
+  "source": "mimic-world team",
+  "description": "A magnitude 9.0 earthquake strikes near Tokyo-Nagoya industrial corridor. Toyota City production halts. Renesas (world's largest MCU maker) fab is destroyed. Global automotive and electronics supply chains face 6-month rebuilding timeline."
+}

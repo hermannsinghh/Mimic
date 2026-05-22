@@ -1,0 +1,23 @@
+{
+  "id": "food_contamination_global",
+  "title": "Global food contamination event — multi-country recall",
+  "category": "pandemic",
+  "severity": 0.55,
+  "duration_days": 90,
+  "initial_shocks": {
+    "food_supply_affected": -0.25,
+    "consumer_confidence_food": -0.40,
+    "agricultural_exports_recalled": -0.30,
+    "food_recall_costs": 0.50
+  },
+  "affected_sectors": ["food", "agriculture", "retail", "hospitality", "healthcare"],
+  "cascade_rules": [
+    {"from": "consumer_confidence_food", "to": "restaurant_visits", "multiplier": 0.60},
+    {"from": "agricultural_exports_recalled", "to": "food_trade_flows", "multiplier": 0.55},
+    {"from": "food_recall_costs", "to": "food_company_margins", "multiplier": 0.70},
+    {"from": "food_supply_affected", "to": "food_prices", "multiplier": 0.35}
+  ],
+  "historical_analogue": "2008 Chinese melamine milk scandal, 2011 E.coli O104 outbreak (Germany), 2023 recalls",
+  "source": "mimic-world team",
+  "description": "A contamination event in a globally distributed food ingredient (e.g. widely-used sweetener or emulsifier) triggers recalls across 40 countries. Consumer trust in processed food collapses. Major food manufacturers halt production lines for testing."
+}

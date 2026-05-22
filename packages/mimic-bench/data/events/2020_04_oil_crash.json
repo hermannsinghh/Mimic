@@ -1,0 +1,21 @@
+{
+  "id": "2020_04_oil_crash",
+  "title": "WTI crude oil futures go negative — historic oil price crash",
+  "date": "2020-04-20",
+  "end_date": "2020-06-30",
+  "category": "energy",
+  "severity": 0.95,
+  "description": "WTI crude oil futures for May delivery crash to -$37.63 per barrel on April 20, 2020 — the first negative oil price in history — as COVID-19 destroys demand while the OPEC+ price war floods supply. Brent crude falls to $16/barrel. US shale producers face bankruptcy. Major integrated oil companies slash capex and suspend buybacks. The broader collapse begins March 9 when Saudi Arabia and Russia fail to agree on OPEC+ cuts.",
+  "affected_sectors": ["Energy", "Financials", "Industrials"],
+  "affected_geographies": ["global", "united_states", "middle_east"],
+  "keywords": ["oil", "crude", "WTI", "OPEC", "capex cut", "dividend", "energy"],
+  "key_indicators": {
+    "wti_may_futures_low_usd": -37.63,
+    "brent_low_usd": 16.0,
+    "us_rig_count_drop_pct": -70,
+    "exxon_capex_cut_usdB": 10,
+    "chevron_capex_cut_usdB": 4
+  },
+  "source": "CME Group, EIA",
+  "source_url": "https://www.eia.gov/todayinenergy/detail.php?id=43616"
+}

@@ -1,0 +1,23 @@
+{
+  "id": "amazon_tipping_point",
+  "title": "Amazon rainforest tipping point — dieback begins",
+  "category": "climate",
+  "severity": 0.70,
+  "duration_days": 730,
+  "initial_shocks": {
+    "agricultural_output_south_america": -0.20,
+    "carbon_price": 0.35,
+    "water_cycle_south_america": -0.18,
+    "deforestation_regulatory_pressure": 0.45
+  },
+  "affected_sectors": ["agriculture", "food", "commodities", "carbon_markets", "consumer_goods"],
+  "cascade_rules": [
+    {"from": "agricultural_output_south_america", "to": "soy_supply", "multiplier": 0.55},
+    {"from": "deforestation_regulatory_pressure", "to": "supply_chain_certification_cost", "multiplier": 0.40},
+    {"from": "carbon_price", "to": "manufacturing_costs", "multiplier": 0.20},
+    {"from": "water_cycle_south_america", "to": "hydroelectric_brazil", "multiplier": 0.60}
+  ],
+  "historical_analogue": "2019 Amazon fires, ongoing deforestation acceleration, 2023 dieback research",
+  "source": "mimic-world team",
+  "description": "Scientific consensus confirms the Amazon has crossed a tipping point — parts converting from rainforest to savannah. Brazil's water cycle disrupts. Agricultural water availability falls. EU's deforestation regulation blocks Brazilian soy/beef imports."
+}

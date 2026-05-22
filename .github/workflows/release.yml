@@ -1,0 +1,45 @@
+name: release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build-and-sign:
+    name: build wheel + sign + SBOM
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write  # cosign keyless
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install build cyclonedx-bom
+      - name: Build wheels for each BSL package
+        run: |
+          for pkg in packages/mimic-framework packages/mimic-forecast packages/mimic-world; do
+            (cd "$pkg" && python -m build)
+          done
+      - name: Generate CycloneDX SBOM per package
+        run: |
+          for pkg in packages/mimic-framework packages/mimic-forecast packages/mimic-world; do
+            cyclonedx-py environment -o "$pkg/dist/sbom.json"
+          done
+      - name: Install cosign
+        uses: sigstore/cosign-installer@v3
+      - name: Cosign-sign each wheel
+        run: |
+          for whl in packages/*/dist/*.whl; do
+            cosign sign-blob --yes --output-signature "${whl}.sig" "$whl"
+          done
+      - name: Upload release assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            packages/*/dist/*.whl
+            packages/*/dist/*.tar.gz
+            packages/*/dist/*.sig
+            packages/*/dist/sbom.json

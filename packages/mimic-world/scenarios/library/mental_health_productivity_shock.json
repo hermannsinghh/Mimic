@@ -1,0 +1,23 @@
+{
+  "id": "mental_health_productivity_shock",
+  "title": "Mental health productivity crisis — workforce collapse",
+  "category": "pandemic",
+  "severity": 0.45,
+  "duration_days": 365,
+  "initial_shocks": {
+    "worker_productivity": -0.14,
+    "absenteeism": 0.22,
+    "healthcare_costs": 0.18,
+    "talent_retention": -0.12
+  },
+  "affected_sectors": ["technology", "finance", "manufacturing", "healthcare", "knowledge_workers"],
+  "cascade_rules": [
+    {"from": "worker_productivity", "to": "corporate_earnings", "multiplier": 0.45},
+    {"from": "absenteeism", "to": "manufacturing_output", "multiplier": 0.40},
+    {"from": "healthcare_costs", "to": "employer_benefit_costs", "multiplier": 0.65},
+    {"from": "talent_retention", "to": "recruiting_costs", "multiplier": -0.55}
+  ],
+  "historical_analogue": "Post-COVID mental health crisis, 'Great Resignation', burnout epidemic (2021-2023)",
+  "source": "mimic-world team",
+  "description": "A mental health crisis driven by post-pandemic stress, AI disruption anxiety, and social media effects causes measurable productivity collapse. Absenteeism rises 22%. High-skilled workers leave corporate jobs. Knowledge-intensive industries (tech, finance, law) are hardest hit."
+}

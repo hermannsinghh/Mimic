@@ -1,0 +1,21 @@
+{
+  "id": "2022_02_russia_ukraine",
+  "title": "Russia invades Ukraine — sweeping sanctions imposed",
+  "date": "2022-02-24",
+  "end_date": "2022-05-31",
+  "category": "geopolitical",
+  "severity": 0.88,
+  "description": "Russia launches a full-scale invasion of Ukraine on February 24, 2022. The US, EU, and UK impose sweeping sanctions including SWIFT removal, asset freezes, and export controls. Brent crude surges past $130/barrel. EU natural gas prices spike 500%+. Ukraine supplies ~70% of the world's neon gas (critical for semiconductor manufacturing). Wheat and corn prices surge. Companies with Russia operations face pressure to exit.",
+  "affected_sectors": ["Energy", "Materials", "Consumer Discretionary", "Technology", "Industrials"],
+  "affected_geographies": ["russia", "ukraine", "europe", "global"],
+  "keywords": ["russia", "ukraine", "invasion", "sanctions", "SWIFT", "commodities", "energy", "neon", "wheat"],
+  "key_indicators": {
+    "brent_crude_peak_usd": 139,
+    "eu_natural_gas_spike_pct": 500,
+    "wheat_price_spike_pct": 50,
+    "ukraine_neon_share_pct": 70,
+    "nickel_lme_spike_pct": 100
+  },
+  "source": "Reuters, Bloomberg, US Treasury OFAC",
+  "source_url": "https://home.treasury.gov/news/press-releases/jy0608"
+}

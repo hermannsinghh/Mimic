@@ -1,0 +1,29 @@
+# uv workspace
+.venv/
+*.egg-info/
+__pycache__/
+*.pyc
+
+# build artifacts
+dist/
+build/
+
+# secrets — never commit
+*.env
+.env*
+!.env.example
+!*.env.example
+
+# pytest
+.pytest_cache/
+pytest-cache-files-*/
+
+# OS
+.DS_Store
+
+# OCI / sigstore
+*.sig
+*.crt
+
+# frozen-run cache
+.mimic-frozen-cache/

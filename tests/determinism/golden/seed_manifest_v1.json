@@ -1,0 +1,19 @@
+{
+  "schema_major": 1,
+  "comment": "Golden SeedManifest derivation vectors. Plan §7.1. Refresh requires schema major bump + ADR.",
+  "derivation": "HKDF-SHA256",
+  "salt": "mimic.framework.determinism.SeedManifest/v1",
+  "vectors": [
+    {
+      "global_seed": 1470828807,
+      "global_seed_hex": "0x57AB1107",
+      "per_shard": {
+        "0": "0x71efecd58b429dff",
+        "1": "0xd7fa104c2565387c"
+      },
+      "per_agent": {
+        "did:web:svb": "0x5c62d5e939049de2"
+      }
+    }
+  ]
+}

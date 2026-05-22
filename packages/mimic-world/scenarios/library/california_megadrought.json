@@ -1,0 +1,24 @@
+{
+  "id": "california_megadrought",
+  "title": "California megadrought — water rationing triggers production halts",
+  "category": "climate",
+  "severity": 0.65,
+  "duration_days": 365,
+  "initial_shocks": {
+    "agricultural_output_california": -0.35,
+    "water_for_manufacturing": -0.25,
+    "wildfire_disruption": 0.40,
+    "semiconductor_fab_water": -0.20,
+    "hydroelectric_power": -0.30
+  },
+  "affected_sectors": ["agriculture", "food", "technology", "insurance", "utilities"],
+  "cascade_rules": [
+    {"from": "agricultural_output_california", "to": "produce_prices_us", "multiplier": 0.45},
+    {"from": "semiconductor_fab_water", "to": "chip_production_california", "multiplier": 0.55},
+    {"from": "wildfire_disruption", "to": "insurance_losses", "multiplier": 0.60},
+    {"from": "hydroelectric_power", "to": "electricity_prices_west", "multiplier": 0.40}
+  ],
+  "historical_analogue": "2012-2017 California drought, 2021-2022 extended drought",
+  "source": "mimic-world team",
+  "description": "California's megadrought forces water rationing across agricultural and industrial users. California produces 13% of US food by value. Chip fabs in Silicon Valley face water restrictions. Wildfires damage power lines and data centers."
+}

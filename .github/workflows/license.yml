@@ -1,0 +1,51 @@
+name: license
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  license-files:
+    name: BSL packages have all four license files
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check LICENSE, LICENSE-BSL, LICENSE-CHANGE-DATE, NOTICE per BSL package
+        run: |
+          set -e
+          missing=0
+          for pkg in packages/mimic-framework packages/mimic-forecast packages/mimic-world; do
+            for f in LICENSE LICENSE-BSL LICENSE-CHANGE-DATE NOTICE; do
+              if [ ! -f "$pkg/$f" ]; then
+                echo "::error::missing $pkg/$f"
+                missing=1
+              fi
+            done
+          done
+          for f in hub/LICENSE scenarios/LICENSE docs/LICENSE; do
+            if [ ! -f "$f" ]; then
+              echo "::error::missing $f"
+              missing=1
+            fi
+          done
+          exit $missing
+
+  no-gpl-in-bsl-packages:
+    name: BSL packages have no GPL dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install pip-licenses
+      - name: Scan each BSL package
+        run: |
+          set -e
+          for pkg in packages/mimic-framework packages/mimic-forecast packages/mimic-world; do
+            cd "$pkg"
+            pip install -e . --quiet || pip install -e ".[dev]" --quiet
+            pip-licenses --fail-on="GNU General Public License v2 (GPLv2);GNU General Public License v3 (GPLv3);GNU Affero General Public License v3 (AGPLv3)" --format=plain
+            cd - > /dev/null
+          done

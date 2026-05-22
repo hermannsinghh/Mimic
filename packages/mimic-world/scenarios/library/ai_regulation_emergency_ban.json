@@ -1,0 +1,24 @@
+{
+  "id": "ai_regulation_emergency_ban",
+  "title": "Emergency AI regulation — G7 moratorium on frontier AI",
+  "category": "cyber",
+  "severity": 0.70,
+  "duration_days": 180,
+  "initial_shocks": {
+    "ai_development_capacity": -0.55,
+    "tech_company_valuation": -0.32,
+    "data_center_utilization": -0.40,
+    "ai_startup_funding": -0.70,
+    "gpu_demand": -0.50
+  },
+  "affected_sectors": ["technology", "semiconductors", "finance", "healthcare", "defense"],
+  "cascade_rules": [
+    {"from": "ai_development_capacity", "to": "productivity_tools", "multiplier": 0.50},
+    {"from": "ai_startup_funding", "to": "vc_deployment", "multiplier": 0.75},
+    {"from": "gpu_demand", "to": "nvidia_revenue", "multiplier": 0.80},
+    {"from": "data_center_utilization", "to": "cloud_capex", "multiplier": 0.60}
+  ],
+  "historical_analogue": "EU AI Act emergency provisions, Biden AI Executive Order 2023, OpenAI governance crisis",
+  "source": "mimic-world team",
+  "description": "Following a high-profile AI safety incident, G7 governments impose an emergency 6-month moratorium on training AI models above 10^25 FLOPs. NVIDIA's order book collapses. Cloud providers cancel data center expansions. AI-dependent startups cannot raise. Big Tech valuations crater."
+}

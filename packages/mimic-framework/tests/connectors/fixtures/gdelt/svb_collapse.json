@@ -1,0 +1,18 @@
+[
+  {
+    "article_id": "https://www.gdeltproject.org/article/1",
+    "url": "https://news.example.com/svb-deposit-run",
+    "published_at": "2023-03-09T14:30:00",
+    "source_country": "US",
+    "tone": -7.5,
+    "themes": ["FIN", "BANK", "ECON_BANKRUPTCY"]
+  },
+  {
+    "article_id": "https://www.gdeltproject.org/article/2",
+    "url": "https://news.example.com/svb-receivership",
+    "published_at": "2023-03-10T18:00:00",
+    "source_country": "US",
+    "tone": -8.2,
+    "themes": ["FIN", "BANK", "GOV_REGULATORY"]
+  }
+]

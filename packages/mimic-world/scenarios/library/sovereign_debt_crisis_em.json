@@ -1,0 +1,24 @@
+{
+  "id": "sovereign_debt_crisis_em",
+  "title": "Emerging market sovereign debt cascade crisis",
+  "category": "macro",
+  "severity": 0.70,
+  "duration_days": 365,
+  "initial_shocks": {
+    "emerging_market_credit": -0.40,
+    "usd_eur": 0.05,
+    "commodity_demand": -0.20,
+    "em_currency_basket": -0.18,
+    "global_trade_volumes": -0.15
+  },
+  "affected_sectors": ["banking", "commodities", "emerging_markets", "infrastructure", "agriculture"],
+  "cascade_rules": [
+    {"from": "emerging_market_credit", "to": "commodity_demand", "multiplier": 0.40},
+    {"from": "em_currency_basket", "to": "dollar_debt_burden", "multiplier": -0.70},
+    {"from": "commodity_demand", "to": "mining_revenue", "multiplier": 0.60},
+    {"from": "global_trade_volumes", "to": "shipping_demand", "multiplier": 0.55}
+  ],
+  "historical_analogue": "1997-98 Asian financial crisis, 2001 Argentine default, 2022 Sri Lanka",
+  "source": "mimic-world team",
+  "description": "Rising US rates and a strong dollar trigger sovereign debt crises in multiple emerging markets. Countries with dollar-denominated debt face default cascades. Commodity demand from EM collapses. Global banks with EM exposure take massive losses."
+}

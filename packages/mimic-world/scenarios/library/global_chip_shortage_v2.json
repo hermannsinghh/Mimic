@@ -1,0 +1,24 @@
+{
+  "id": "global_chip_shortage_v2",
+  "title": "Global chip shortage v2 — legacy node collapse",
+  "category": "supply_chain",
+  "severity": 0.80,
+  "duration_days": 180,
+  "initial_shocks": {
+    "semiconductor_supply": -0.50,
+    "semiconductor_spot_price": 0.65,
+    "legacy_node_capacity": -0.60,
+    "microcontroller_supply": -0.70
+  },
+  "affected_sectors": ["automotive", "consumer_electronics", "industrial", "defense", "appliances"],
+  "cascade_rules": [
+    {"from": "semiconductor_supply", "to": "auto_production", "multiplier": 0.72},
+    {"from": "semiconductor_supply", "to": "appliance_production", "multiplier": 0.55},
+    {"from": "microcontroller_supply", "to": "industrial_equipment", "multiplier": 0.65},
+    {"from": "semiconductor_spot_price", "to": "consumer_electronics_prices", "multiplier": 0.40},
+    {"from": "legacy_node_capacity", "to": "medical_device_production", "multiplier": 0.35}
+  ],
+  "historical_analogue": "2020-2022 global semiconductor shortage (auto alone lost $210B revenue)",
+  "source": "mimic-world team",
+  "description": "A fire at a key legacy-node fab (mature process: 28nm, 40nm) combined with a TSMC capacity reallocation triggers a second global chip shortage. Automotive manufacturers stop assembly lines. Appliance makers face 52-week lead times."
+}

@@ -1,0 +1,24 @@
+{
+  "id": "gps_disruption_30d",
+  "title": "GPS signal disruption — 30-day global positioning failure",
+  "category": "cyber",
+  "severity": 0.65,
+  "duration_days": 30,
+  "initial_shocks": {
+    "logistics_efficiency": -0.35,
+    "financial_timestamps": -0.20,
+    "aviation_capacity": -0.25,
+    "precision_agriculture": -0.30,
+    "autonomous_vehicle_operations": -0.90
+  },
+  "affected_sectors": ["logistics", "aviation", "finance", "agriculture", "defense"],
+  "cascade_rules": [
+    {"from": "logistics_efficiency", "to": "delivery_cost", "multiplier": 0.50},
+    {"from": "financial_timestamps", "to": "high_frequency_trading", "multiplier": -0.70},
+    {"from": "aviation_capacity", "to": "air_freight_volume", "multiplier": 0.65},
+    {"from": "precision_agriculture", "to": "crop_yield_efficiency", "multiplier": 0.40}
+  ],
+  "historical_analogue": "2016 GPS timing anomaly, 2022 GPS jamming in Eastern Europe, UK 2021 GPS failure",
+  "source": "mimic-world team",
+  "description": "Coordinated GPS jamming from multiple sources degrades global positioning accuracy to 50+ meters. FedEx and UPS route planning collapses. Financial markets lose microsecond timestamps. Aviation falls back to radar-only navigation. Self-driving vehicle pilots halt."
+}

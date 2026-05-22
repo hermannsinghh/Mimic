@@ -1,0 +1,30 @@
+name: sbom
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  cyclonedx:
+    name: CycloneDX SBOM per package
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install cyclonedx-bom
+      - name: Generate SBOMs
+        run: |
+          for pkg in packages/mimic-framework packages/mimic-forecast packages/mimic-world hub; do
+            (cd "$pkg" && pip install -e . --quiet)
+            cyclonedx-py environment -o "$pkg/sbom.json"
+          done
+      - name: Upload to release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            packages/*/sbom.json
+            hub/sbom.json
