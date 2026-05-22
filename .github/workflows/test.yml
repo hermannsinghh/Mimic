@@ -17,6 +17,7 @@ jobs:
           - mimic-framework
           - mimic-forecast
           - mimic-world
+          - mimic-concordia
           - mimic-sim
           - mimic-signal
           - mimic-bench

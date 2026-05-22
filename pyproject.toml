@@ -9,6 +9,7 @@ members = [
     "packages/mimic-framework",
     "packages/mimic-forecast",
     "packages/mimic-world",
+    "packages/mimic-concordia",
     "packages/mimic-sim",
     "packages/mimic-signal",
     "packages/mimic-bench",

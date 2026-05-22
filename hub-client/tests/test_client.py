@@ -95,26 +95,20 @@ def test_5xx_surfaces_as_hub_error():
 
 
 def test_publish_requires_mimic_framework(tmp_path, monkeypatch):
-    # simulate framework missing
+    # Force `from mimic.framework.scenario import pack` to raise ImportError
+    # regardless of how mimic-framework happens to be installed (PEP 660
+    # editable finder, easy-install.pth, plain site-packages, …). Setting
+    # the module entry to None in sys.modules makes `import` raise — that
+    # is the documented way to mask an installed module for the duration of
+    # a single test.
     import sys
-    real = sys.modules.pop("mimic.framework.scenario", None)
-    real_fw = sys.modules.pop("mimic.framework", None)
-    real_m = sys.modules.pop("mimic", None)
-    monkeypatch.setattr(sys, "path", [p for p in sys.path if "mimic-framework" not in p])
-    try:
-        with HubClient(transport=_mock(lambda r: httpx.Response(200, json=_MANIFEST))) as c:
-            scen = tmp_path / "s"
-            scen.mkdir()
-            (scen / "x.txt").write_text("hi")
-            with pytest.raises(HubError, match="mimic-framework"):
-                c.publish(scen, api_key="x", skip_signing=True)
-    finally:
-        if real:
-            sys.modules["mimic.framework.scenario"] = real
-        if real_fw:
-            sys.modules["mimic.framework"] = real_fw
-        if real_m:
-            sys.modules["mimic"] = real_m
+    monkeypatch.setitem(sys.modules, "mimic.framework.scenario", None)
+    with HubClient(transport=_mock(lambda r: httpx.Response(200, json=_MANIFEST))) as c:
+        scen = tmp_path / "s"
+        scen.mkdir()
+        (scen / "x.txt").write_text("hi")
+        with pytest.raises(HubError, match="mimic-framework"):
+            c.publish(scen, api_key="x", skip_signing=True)
 
 
 def test_publish_without_signer_or_skip_signing_raises():

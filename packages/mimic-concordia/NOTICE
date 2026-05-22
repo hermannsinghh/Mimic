@@ -1,0 +1,23 @@
+mimic-concordia
+Copyright 2026 Mimic AI
+
+Licensed under the Business Source License 1.1.
+Converts to Apache 2.0 on the date in LICENSE-CHANGE-DATE.
+
+----------------------------------------------------------------------
+This package depends on Google DeepMind Concordia, which is distributed
+under the Apache License, Version 2.0:
+
+    DeepMind Concordia
+    https://github.com/google-deepmind/concordia
+    Copyright 2023 DeepMind Technologies Limited.
+    Licensed under the Apache License, Version 2.0.
+    SPDX-License-Identifier: Apache-2.0
+
+The Apache 2.0 license text is available at
+https://www.apache.org/licenses/LICENSE-2.0.
+
+The pinned upstream version for this release is recorded in
+[mimic_concordia/_provenance.py](mimic_concordia/_provenance.py) and
+[pyproject.toml](pyproject.toml). Any change to that pin triggers a
+fresh NOTICE review and a `mimic-concordia` minor bump.
