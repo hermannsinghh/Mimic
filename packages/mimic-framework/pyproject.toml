@@ -39,6 +39,9 @@ dev = [
 dotenv = [
     "python-dotenv>=1.0",
 ]
+concordia = [
+    "mimic-concordia==0.2.0a0",
+]
 
 [project.scripts]
 mimic = "mimic.cli:cli"
