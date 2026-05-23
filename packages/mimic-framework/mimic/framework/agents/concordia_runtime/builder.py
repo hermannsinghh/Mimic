@@ -219,6 +219,13 @@ class ConcordiaPersonaBuilder:
         ``concordia_reasoning`` is the Concordia agent's act() output —
         the only data path that carries the persona's reasoning into the
         Decision-emission cascade.
+
+        Cedent-level fields (``cat_model``, ``expected_loss_usd``,
+        ``premium_offer_usd``, ``treaty_layer``) are surfaced from the
+        entity dict with the event as a fallback. This lets a toy
+        liability network attach per-cedent underwriting facts without
+        requiring the scenario YAML to carry them at the event level —
+        the equivalence-test reinsurance network uses this path.
         """
         return {
             "concordia_reasoning": reasoning,
@@ -226,13 +233,13 @@ class ConcordiaPersonaBuilder:
             "entity_iri": entity.get("iri", ""),
             "event": event,
             "scope": scope,
-            # Best-effort domain hints — kept here so existing prefabs that
-            # read e.g. ``treaty_summary`` from inputs still get a usable
-            # (if minimal) value while step 5 retunes them to read
-            # ``concordia_reasoning`` directly.
             "treaty_summary": _summarize_for_treaty(entity, event, reasoning),
-            "cat_model": event.get("cat_model"),
+            # cedent-level underwriting fields → fall back to event
+            "cat_model": entity.get("cat_model") or event.get("cat_model"),
             "loss_ratio": entity.get("loss_ratio"),
+            "expected_loss_usd": entity.get("expected_loss_usd"),
+            "premium_offer_usd": entity.get("premium_offer_usd"),
+            "treaty_layer": entity.get("treaty_layer"),
         }
 
 

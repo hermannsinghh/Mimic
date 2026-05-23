@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
-"""Record frozen-run cassettes for svb-replay-2023.
+"""Record frozen-run cassettes for svb-replay-2023 against Claude Opus 4.5.
 
 ONE-TIME recording session: runs ``ScenarioRunner`` against
 ``scenarios/svb-replay-2023/`` with ``ConcordiaPersonaBuilder`` driving a
-``RecordingProvider`` wrapped around a live ``AnthropicProvider`` or
-``DeepSeekProvider``. Every LLM response gets captured under
-``tests/fixtures/frozen-run/svb-replay-2023[-<provider>]/`` so subsequent
-CI runs replay deterministically via ``FrozenRunProvider``.
+``RecordingProvider`` wrapped around a live ``AnthropicProvider``. Every LLM
+response gets captured to ``tests/fixtures/frozen-run/svb-replay-2023/`` so
+subsequent CI runs replay deterministically via ``FrozenRunProvider``.
 
 Usage:
 
@@ -35,6 +34,17 @@ The default canonical model is ``claude-opus-4-7`` per ADR
 ``decision-record/2026-05-22-anthropic-model-choice.md``. DeepSeek is the
 forward-progress fallback while Anthropic key is unavailable — its cassettes
 are committed for repeatability, but are clearly NOT the audit baseline.
+
+The script refuses to run if ``MIMIC_FROZEN_RUN=1`` is set — that mode
+expects cassettes to *exist*, and we're here to *create* them. The script
+also refuses to run if the output directory already contains cassettes,
+unless ``MIMIC_RECORD_OVERWRITE=1`` is set; this protects against
+accidental re-recording (which would silently shift the audit baseline,
+see ``tests/fixtures/frozen-run/README.md``).
+
+For the audit trail, the script prints a summary at the end: count of
+cassettes recorded, scenario name, model fingerprint, and the cassette
+output directory. Commit the directory contents; do not commit secrets.
 """
 from __future__ import annotations
 
@@ -44,29 +54,31 @@ from pathlib import Path
 from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-SCENARIO_DIR = REPO_ROOT / "scenarios" / "svb-replay-2023"
+DEFAULT_SCENARIO_NAME = "svb-replay-2023"
+SCENARIO_DIR = REPO_ROOT / "scenarios" / DEFAULT_SCENARIO_NAME
 
-# Provider-specific default fixture dirs. The canonical Anthropic baseline
-# lives at ``svb-replay-2023/`` and is the F-12 audit fixture set per
-# ``decision-record/2026-05-22-anthropic-model-choice.md``. DeepSeek
-# cassettes live alongside but at ``svb-replay-2023-deepseek/`` so the
-# canonical dir stays empty until Anthropic is recorded.
-_OUT_DIR_BY_PROVIDER = {
-    "anthropic": REPO_ROOT / "tests" / "fixtures" / "frozen-run" / "svb-replay-2023",
-    "deepseek":  REPO_ROOT / "tests" / "fixtures" / "frozen-run" / "svb-replay-2023-deepseek",
-}
+# Provider-specific suffix on the fixture dir name. Canonical (Anthropic)
+# fixtures live at ``<scenario>/``; secondary providers live at
+# ``<scenario>-<provider>/`` so the canonical dir stays empty until
+# Anthropic is recorded.
+_PROVIDER_SUFFIX = {"anthropic": "", "deepseek": "-deepseek"}
 
 
-# ── liability network (matches tests/scenario/test_audit_grade_refusal.py) ──
+def _scenario_dir(name: str) -> Path:
+    return REPO_ROOT / "scenarios" / name
+
+
+def _cassette_dir(scenario_name: str, provider: str) -> Path:
+    suffix = _PROVIDER_SUFFIX[provider]
+    return REPO_ROOT / "tests" / "fixtures" / "frozen-run" / f"{scenario_name}{suffix}"
+
+
+# ── liability networks (one per scenario; kept inline so recording is ──────
+#    reproducible from this script alone) ──────────────────────────────────
 
 
 def _svb_liability_network() -> dict:
-    """The svb-replay-2023 toy network used by the runner e2e test.
-
-    Kept inline rather than loaded from a YAML so the recording is fully
-    reproducible from the script itself — if someone six months from now
-    re-records cassettes, they re-record against the same network bytes.
-    """
+    """svb-replay-2023 toy network (matches tests/scenario/test_audit_grade_refusal.py)."""
     return {
         "schema": "mimic.world.liability/v1",
         "entities": [
@@ -81,6 +93,115 @@ def _svb_liability_network() -> dict:
              "amount": 14e9},
         ],
     }
+
+
+def _taiwan_strait_reinsurance_network() -> dict:
+    """taiwan-strait-30d-closure toy network — cedents seeking reinsurance.
+
+    MUST be byte-identical to
+    ``tests/equivalence/test_equivalence.py::_toy_reinsurance_network``
+    so the cassette cache_keys are stable: messages built from this
+    network feed model_fingerprint → cache_key, and any drift here
+    invalidates the recorded cassettes.
+    """
+    return {
+        "schema": "mimic.world.liability/v1",
+        "entities": [
+            {
+                "iri": "https://example.com/marine-mutual", "name": "MarineMutual",
+                "industry": "marine_insurance", "equity": 3.2e9,
+                "total_assets": 11e9, "loss_ratio": 0.72,
+                "treaty_layer": "$500M xs $50M",
+                "premium_offer_usd": 18e6,
+                "expected_loss_usd": 12e6,
+                "cat_model": {"scenario": "30d Taiwan strait closure",
+                              "oep_1_in_50_usd": 320e6,
+                              "oep_1_in_100_usd": 470e6,
+                              "oep_1_in_200_usd": 580e6,
+                              "aep_annual_usd": 14e6},
+            },
+            {
+                "iri": "https://example.com/property-cat-co", "name": "PropertyCatCo",
+                "industry": "property_cat", "equity": 5.5e9,
+                "total_assets": 21e9, "loss_ratio": 0.65,
+                "treaty_layer": "$1B xs $200M",
+                "premium_offer_usd": 42e6,
+                "expected_loss_usd": 35e6,
+                "cat_model": {"scenario": "30d Taiwan strait closure",
+                              "oep_1_in_50_usd": 680e6,
+                              "oep_1_in_100_usd": 920e6,
+                              "oep_1_in_200_usd": 1.05e9,
+                              "aep_annual_usd": 38e6},
+            },
+            {
+                "iri": "https://example.com/asia-property-trust",
+                "name": "AsiaPropertyTrust",
+                "industry": "property_cat", "equity": 2.1e9,
+                "total_assets": 7.5e9, "loss_ratio": 0.68,
+                "treaty_layer": "$300M xs $50M",
+                "premium_offer_usd": 22e6,
+                "expected_loss_usd": 15e6,
+                "cat_model": {"scenario": "30d Taiwan strait closure",
+                              "oep_1_in_50_usd": 240e6,
+                              "oep_1_in_100_usd": 330e6,
+                              "oep_1_in_200_usd": 410e6,
+                              "aep_annual_usd": 16e6},
+            },
+            {
+                "iri": "https://example.com/hong-kong-cargo",
+                "name": "HongKongCargo",
+                "industry": "marine_insurance", "equity": 1.8e9,
+                "total_assets": 5.2e9, "loss_ratio": 0.75,
+                "treaty_layer": "$100M xs $20M",
+                "premium_offer_usd": 8e6,
+                "expected_loss_usd": 6e6,
+                "cat_model": {"scenario": "30d Taiwan strait closure",
+                              "oep_1_in_50_usd": 95e6,
+                              "oep_1_in_100_usd": 130e6,
+                              "oep_1_in_200_usd": 160e6,
+                              "aep_annual_usd": 6.5e6},
+            },
+            {
+                "iri": "https://example.com/pacific-energy-mutual",
+                "name": "PacificEnergyMutual",
+                "industry": "energy", "equity": 4.5e9,
+                "total_assets": 18e9, "loss_ratio": 0.60,
+                "treaty_layer": "$800M xs $150M",
+                "premium_offer_usd": 55e6,
+                "expected_loss_usd": 40e6,
+                "cat_model": {"scenario": "30d Taiwan strait closure",
+                              "oep_1_in_50_usd": 540e6,
+                              "oep_1_in_100_usd": 730e6,
+                              "oep_1_in_200_usd": 870e6,
+                              "aep_annual_usd": 42e6},
+            },
+            {
+                "iri": "https://example.com/taiwan-life-insurance",
+                "name": "TaiwanLifeInsurance",
+                "industry": "life", "equity": 3.7e9,
+                "total_assets": 28e9, "loss_ratio": 0.58,
+                "treaty_layer": "$200M xs $40M",
+                "premium_offer_usd": 15e6,
+                "expected_loss_usd": 11e6,
+                "cat_model": {"scenario": "30d Taiwan strait closure",
+                              "oep_1_in_50_usd": 180e6,
+                              "oep_1_in_100_usd": 240e6,
+                              "oep_1_in_200_usd": 295e6,
+                              "aep_annual_usd": 12e6},
+            },
+        ],
+        "exposures": [
+            {"debtor_iri": "https://example.com/marine-mutual",
+             "creditor_iri": "https://example.com/property-cat-co",
+             "amount": 200e6},
+        ],
+    }
+
+
+_LIABILITY_NETWORKS: dict[str, Any] = {
+    "svb-replay-2023": _svb_liability_network,
+    "taiwan-strait-30d-closure": _taiwan_strait_reinsurance_network,
+}
 
 
 # ── stub provider used when MIMIC_RECORD_DRY_RUN=1 ─────────────────────────
@@ -110,6 +231,9 @@ class _DryRunProvider:
         temperature: float, seed: int | None, system_prompt: str = "",
     ):
         self._call_count += 1
+        # Pick a response shape based on the schema/system_prompt the
+        # caller asked for. Sufficient to satisfy the existing prefab and
+        # the Concordia LM adapter without parsing the prompt.
         if "treaty" in system_prompt.lower() or "reinsurance" in system_prompt.lower():
             content: dict[str, Any] = {
                 "action": "hold", "premium_usd": 0.0, "retention_usd": 0.0,
@@ -145,13 +269,22 @@ def main() -> int:
         )
 
     provider_name = os.environ.get("MIMIC_RECORD_PROVIDER", "anthropic").lower()
-    if provider_name not in _OUT_DIR_BY_PROVIDER:
+    if provider_name not in _PROVIDER_SUFFIX:
         _fail(f"unknown MIMIC_RECORD_PROVIDER={provider_name!r}. "
-              f"Supported: {sorted(_OUT_DIR_BY_PROVIDER)}")
+              f"Supported: {sorted(_PROVIDER_SUFFIX)}")
     if provider_name == "deepseek":
         _load_deepseek_env()
 
-    default_out = _OUT_DIR_BY_PROVIDER[provider_name]
+    scenario_name = os.environ.get("MIMIC_RECORD_SCENARIO", DEFAULT_SCENARIO_NAME)
+    if scenario_name not in _LIABILITY_NETWORKS:
+        _fail(f"unknown MIMIC_RECORD_SCENARIO={scenario_name!r}. "
+              f"Supported: {sorted(_LIABILITY_NETWORKS)} "
+              f"(or extend _LIABILITY_NETWORKS in this script).")
+    scenario_dir = _scenario_dir(scenario_name)
+    if not (scenario_dir / "scenario.yaml").is_file():
+        _fail(f"no scenario.yaml at {scenario_dir}")
+
+    default_out = _cassette_dir(scenario_name, provider_name)
     out_dir = Path(os.environ.get("MIMIC_RECORD_OUT", default_out))
     overwrite = os.environ.get("MIMIC_RECORD_OVERWRITE") == "1"
     if out_dir.exists() and any(out_dir.glob("*.json")) and not overwrite:
@@ -183,21 +316,22 @@ def main() -> int:
     prefab = ReinsurerTreatyPricer(cascade=cascade, pdp=pdp)
     builder = ConcordiaPersonaBuilder(prefab=prefab, llm_provider=recorder)
 
-    spec = load_spec(SCENARIO_DIR / "scenario.yaml")
+    spec = load_spec(scenario_dir / "scenario.yaml")
+    network = _LIABILITY_NETWORKS[scenario_name]()
     # audit_grade=False during recording — cassettes don't exist yet,
     # so the runner would refuse otherwise. The hash fields stay None
     # on this run; once cassettes are committed, CI runs MIMIC_FROZEN_RUN=1
     # which lets audit_grade=True emit a hash from replayed responses.
     runner = ScenarioRunner(pdp=pdp, persona_builder=builder, audit_grade=False)
 
-    print(f"[record] scenario:       {SCENARIO_DIR.name}")
+    print(f"[record] scenario:       {scenario_name}")
     print(f"[record] cassette out:   {out_dir}")
     print(f"[record] inner provider: {inner_provider.provider_name}/"
           f"{inner_provider.model_name}/{inner_provider.model_version}")
     print(f"[record] dry-run:        {dry_run}")
     print(f"[record] starting run…")
 
-    manifest = runner.run(spec, liability_network=_svb_liability_network())
+    manifest = runner.run(spec, liability_network=network)
 
     print(f"[record] decisions:      {len(manifest.decisions)}")
     print(f"[record] cassettes:      {recorder.recorded_count}")
