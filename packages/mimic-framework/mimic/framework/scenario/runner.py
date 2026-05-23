@@ -58,6 +58,45 @@ def _is_deterministic(builder: PersonaBuilder) -> bool:
     return bool(getattr(builder, "is_deterministic", False))
 
 
+def _resolve_target_node(instrument_iri: str, node_names: set[str]) -> str | None:
+    """Resolve a Decision's instrument IRI to the network node it targets.
+
+    The network keys nodes by full entity IRI. Decisions may carry the
+    entity IRI directly (deterministic stubs) or an instrument-suffixed
+    form (``<entity_iri>/<instrument_segment>``, as Mimic prefabs emit).
+    This helper handles both by walking up the path:
+
+        "https://example.com/svb"                       → "https://example.com/svb"  (direct)
+        "https://example.com/svb/reinsurance-treaty"    → "https://example.com/svb"  (parent)
+        "https://example.com/orphan"                    → None  (not in network)
+        ""                                              → None
+
+    Bounded to 8 levels of upward walking to keep behavior O(1) on
+    pathological inputs; entity IRIs in practice are never nested that
+    deep. Termination stops at the scheme (``https://host``) to avoid
+    falsely matching against malformed parents like ``"https:"``.
+
+    See ADR ``decision-record/2026-05-22-runner-iri-resolution.md`` for
+    why this lives at the runner level rather than as a new
+    ``Decision.target_iri`` schema field (schema major bump avoided).
+    """
+    if not instrument_iri:
+        return None
+    candidate = instrument_iri
+    for _ in range(8):
+        if candidate in node_names:
+            return candidate
+        if "/" not in candidate:
+            return None
+        parent, _, _tail = candidate.rpartition("/")
+        # Stop at the scheme — "https://host".rpartition("/") yields
+        # parent == "https:" which is not a valid entity prefix.
+        if not parent or parent.endswith(":") or parent.endswith(":/"):
+            return None
+        candidate = parent
+    return None
+
+
 # ── result types ─────────────────────────────────────────────────────────────
 
 @dataclass(frozen=True)
@@ -143,18 +182,26 @@ class ScenarioRunner:
         }
         decisions = self.persona_builder(scenario_ctx)
 
-        # 4. Convert Decisions → PersonaActions for the contagion engine
-        actions = [
-            PersonaAction(
-                node_name=str(d.instrument_iri).split("/")[-1] if "/" in str(d.instrument_iri) else d.agent_did,
+        # 4. Convert Decisions → PersonaActions for the contagion engine.
+        # Network nodes are keyed by full entity IRI (mimic_world.contagion
+        # .fibo_builder.from_fibo_dict sets ``name=ent["iri"]`` at l.76).
+        # Decision.instrument_iri may be either the entity IRI directly
+        # (deterministic stub builders) or ``<entity_iri>/<instrument_suffix>``
+        # (Mimic prefabs, e.g. ReinsurerTreatyPricer → ``…/reinsurance-treaty``).
+        # ``_resolve_target_node`` walks up the IRI path to find the network
+        # node that contains the instrument.
+        node_index = set(names)
+        actions: list[PersonaAction] = []
+        for d in decisions:
+            target = _resolve_target_node(str(d.instrument_iri), node_index)
+            if target is None:
+                continue  # orphaned — instrument doesn't belong to any node
+            actions.append(PersonaAction(
+                node_name=target,
                 action_type=d.action_type,
                 quantity_usd=d.quantity,
                 confidence=d.confidence,
-            )
-            for d in decisions
-        ]
-        # match actions to known network nodes (skip orphans)
-        actions = [a for a in actions if a.node_name in names]
+            ))
 
         # 5. Propagate stress (W-05)
         stress = propagate_stress(L, e, v, names, actions)
