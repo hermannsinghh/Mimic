@@ -8,14 +8,42 @@ via `FrozenRunProvider` instead of hitting a live LLM API.
 ```
 tests/fixtures/frozen-run/
 ├── README.md                          # this file
-├── svb-replay-2023/                   # one subdir per scenario
+├── svb-replay-2023/                   # CANONICAL Anthropic baseline (audit-grade)
 │   └── <cache_key>.json               # one file per (model_fingerprint × messages) pair
+├── svb-replay-2023-deepseek/          # development cassettes against DeepSeek V3.2
+│   └── <cache_key>.json               # NOT the audit baseline — see "Provider variants"
 ├── 2008-gfc-bank-cascade/
 └── ...
 ```
 
 `<cache_key>` is `sha256(model_fingerprint || canonical_json(messages))` per
 Plan §7.3 — the same key the production `FrozenRunProvider` computes.
+
+### Provider variants
+
+The `<scenario>/` directory (no provider suffix) holds the audit-grade
+canonical cassettes recorded against the Plan §4.2-named model for that
+tier. Today that's Claude Opus 4.7 (see
+[`decision-record/2026-05-22-anthropic-model-choice.md`](../../../decision-record/2026-05-22-anthropic-model-choice.md))
+for T1 scenarios like svb-replay-2023.
+
+`<scenario>-<provider>/` directories hold non-canonical fixtures recorded
+against secondary providers. Useful for:
+
+* **Forward progress** when the canonical provider's API key isn't
+  available yet (DeepSeek covers F-12 step 5 prefab tightening without
+  blocking on Anthropic procurement).
+* **Cross-provider equivalence testing** — eventually F-11's calibration
+  bench runs the same scenario across providers and reports per-provider
+  noise floors.
+* **Cost-tier sanity checks** — DeepSeek (T3) is 18× cheaper than Anthropic
+  (T1) per Plan §4.2; the cross-provider Decision delta surfaces in
+  `eval/harness/` once we have both sets.
+
+A run against `<scenario>-deepseek/` cassettes is **never** audit-grade.
+The `ScenarioRunner`'s hash is computed correctly, but the model that
+produced the underlying decisions doesn't match the scenario's claimed
+canonical model.
 
 ## How cassettes get created
 

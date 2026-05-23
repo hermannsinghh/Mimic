@@ -3,7 +3,15 @@
 Tier criteria are deterministic; no LLM in the routing decision itself.
 Every call emits OTEL span `mimic.route` with cost, tokens, confidence.
 """
+from .anthropic import (  # noqa: F401
+    AnthropicJSONParseError,
+    AnthropicProvider,
+)
 from .cascade import RouteResult, RoutingCascade  # noqa: F401
+from .deepseek import (  # noqa: F401
+    DeepSeekJSONParseError,
+    DeepSeekProvider,
+)
 from .provider import (  # noqa: F401
     BudgetExceeded,
     FrozenRunCacheMiss,
@@ -23,4 +31,8 @@ __all__ = [
     "FrozenRunCacheMiss",
     "RoutingCascade",
     "RouteResult",
+    "AnthropicProvider",
+    "AnthropicJSONParseError",
+    "DeepSeekProvider",
+    "DeepSeekJSONParseError",
 ]
